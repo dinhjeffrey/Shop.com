@@ -31,6 +31,13 @@
                                     <action selector="productsPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pvq-xm-EZ5"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auO-Rf-y7d">
+                                <rect key="frame" x="20" y="104" width="120" height="30"/>
+                                <state key="normal" title="Tax And Shipping"/>
+                                <connections>
+                                    <action selector="taxAndShippingPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Twg-7x-8kU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>

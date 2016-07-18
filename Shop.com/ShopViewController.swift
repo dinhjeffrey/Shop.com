@@ -33,6 +33,9 @@ class ShopViewController: UIViewController {
     @IBAction func productsPressed() {
         products()
     }
+    @IBAction func taxAndShippingPressed() {
+        taxAndShipping()
+    }
     
     
     private func categories() {
@@ -58,13 +61,42 @@ class ShopViewController: UIViewController {
         let params = [
             "publisherID": "TEST", // required
             "locale": "en_US", // required
-            "start": "", // The index of where to start, in the list of all matching products, when returning [perPage] number of products. Typically should be set to a multiple of your perPage value. (defaults to 0)
+            "start": "", // defaults to 0
             "perPage": "", // defaults to 15
             "term": "",
             "categoryId": "",
             "brandId": "Vans",
             "sellerId": "",
             "priceRangeId": "" // i.e. "[0.0 TO 10.00]"
+        ]
+        
+        Alamofire.request(
+            .GET,
+            url,
+            parameters: params,
+            headers: headers
+            )
+            .responseJSON { response in
+                print(response.result)   // result of response serialization
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                }
+        }
+    }
+    private func taxAndShipping() {
+        url += "taxandshipping"
+        
+        let params = [
+            "publisherID": "TEST", // required
+            "locale": "en_US", // required
+            "prodIds": "749443420", // required
+            "quantity": "1", // required
+            "zip": "92841", // required
+            "state": "",
+            "city": "",
+            "country": "",
+            "street": ""
         ]
         
         Alamofire.request(
