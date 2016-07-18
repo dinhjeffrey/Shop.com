@@ -44,6 +44,9 @@ class ShopViewController: UIViewController {
     @IBAction func searchServicePressed() {
         searchService()
     }
+    @IBAction func productServicePressed() {
+        productService()
+    }
     
     private func categories() {
         url += "categories"
@@ -127,6 +130,29 @@ class ShopViewController: UIViewController {
         let params = [
             "page": "",
             "count": ""
+        ]
+        
+        Alamofire.request(
+            .GET,
+            url,
+            parameters: params,
+            headers: headers
+            )
+            .responseJSON { response in
+                print(response.result)   // result of response serialization
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                }
+        }
+    }
+    private func productService() {
+        let prodId = "874694776"
+        let url = "https://api.shop.com/stores/v1/products/\(prodId)"
+        
+        let params = [
+            "allperms": "", // "true" or "false"
+//            "siteId": "" // not working when enabled
         ]
         
         Alamofire.request(
