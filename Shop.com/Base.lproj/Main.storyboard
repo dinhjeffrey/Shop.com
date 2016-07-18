@@ -18,10 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHK-mX-Rb8">
-                                <rect key="frame" x="20" y="28" width="30" height="30"/>
-                                <state key="normal" title="test"/>
+                                <rect key="frame" x="20" y="28" width="75" height="30"/>
+                                <state key="normal" title="Categories"/>
                                 <connections>
-                                    <action selector="test" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zsw-hT-iOp"/>
+                                    <action selector="categoriesPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="v09-lf-1yy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIV-1R-ktC">
+                                <rect key="frame" x="20" y="66" width="62" height="30"/>
+                                <state key="normal" title="Products"/>
+                                <connections>
+                                    <action selector="productsPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pvq-xm-EZ5"/>
                                 </connections>
                             </button>
                         </subviews>
