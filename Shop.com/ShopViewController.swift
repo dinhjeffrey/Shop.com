@@ -25,8 +25,11 @@ class ShopViewController: UIViewController {
         "publisherID": "TEST",
         "locale": "en_US",
         ]
-    let headers = ["apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"]
+    let headers = [
+        "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
+    ]
     
+    // APN APIs
     @IBAction func categoriesPressed() {
         categories()
     }
@@ -37,6 +40,10 @@ class ShopViewController: UIViewController {
         taxAndShipping()
     }
     
+    // PUBLIC APIs
+    @IBAction func searchServicePressed() {
+        searchService()
+    }
     
     private func categories() {
         url += "categories"
@@ -97,6 +104,29 @@ class ShopViewController: UIViewController {
             "city": "",
             "country": "",
             "street": ""
+        ]
+        
+        Alamofire.request(
+            .GET,
+            url,
+            parameters: params,
+            headers: headers
+            )
+            .responseJSON { response in
+                print(response.result)   // result of response serialization
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                }
+        }
+    }
+    private func searchService() {
+        let term = "Vans"
+        let url = "https://api.shop.com/sites/v1/search/term/\(term)"
+        
+        let params = [
+            "page": "",
+            "count": ""
         ]
         
         Alamofire.request(

@@ -38,6 +38,13 @@
                                     <action selector="taxAndShippingPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Twg-7x-8kU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WpN-54-ccf">
+                                <rect key="frame" x="20" y="296" width="98" height="30"/>
+                                <state key="normal" title="searchService"/>
+                                <connections>
+                                    <action selector="searchServicePressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="OfL-EF-h7r"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
