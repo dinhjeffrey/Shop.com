@@ -56,15 +56,15 @@ class ShopViewController: UIViewController {
         url += "products"
         
         let params = [
-            "publisherID": "TEST",
-            "locale": "en_US",
-            "start": "",
-            "perPage": "",
+            "publisherID": "TEST", // required
+            "locale": "en_US", // required
+            "start": "", // The index of where to start, in the list of all matching products, when returning [perPage] number of products. Typically should be set to a multiple of your perPage value. (defaults to 0)
+            "perPage": "", // defaults to 15
             "term": "",
             "categoryId": "",
             "brandId": "Vans",
             "sellerId": "",
-            "priceRangeId": ""
+            "priceRangeId": "" // i.e. "[0.0 TO 10.00]"
         ]
         
         Alamofire.request(
