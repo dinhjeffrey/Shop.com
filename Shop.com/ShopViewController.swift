@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ShopViewController: UIViewController {
 // API Docs: http://developer.shop.com/documentation
