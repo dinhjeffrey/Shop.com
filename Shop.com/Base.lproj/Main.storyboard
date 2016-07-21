@@ -84,31 +84,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-D4-io5">
-                                <rect key="frame" x="246" y="290" width="109" height="39"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tNS-Nw-ci5">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                            </imageView>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-rX-gbu">
+                                <rect key="frame" x="20" y="498" width="560" height="2"/>
+                            </progressView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="drf-g3-cZW">
+                                <rect key="frame" x="282" y="399" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-D4-io5">
+                                <rect key="frame" x="246" y="312" width="109" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="7vn-cP-k4S" eventType="touchUpInside" id="oFv-E6-dEO"/>
                                 </connections>
                             </button>
-                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-rX-gbu">
-                                <rect key="frame" x="0.0" y="498" width="600" height="2"/>
-                            </progressView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="drf-g3-cZW">
-                                <rect key="frame" x="282" y="399" width="37" height="37"/>
-                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tNS-Nw-ci5">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nyi-rX-gbu" firstAttribute="leading" secondItem="7Ip-H5-lZj" secondAttribute="leading" id="03h-9W-bCO"/>
+                            <constraint firstItem="nyi-rX-gbu" firstAttribute="leading" secondItem="7Ip-H5-lZj" secondAttribute="leading" constant="20" id="03h-9W-bCO"/>
                             <constraint firstItem="SbI-D4-io5" firstAttribute="centerX" secondItem="tNS-Nw-ci5" secondAttribute="centerX" id="2WI-7w-TAT"/>
                             <constraint firstAttribute="trailing" secondItem="tNS-Nw-ci5" secondAttribute="trailing" id="BBJ-Nm-nt8"/>
-                            <constraint firstAttribute="trailing" secondItem="nyi-rX-gbu" secondAttribute="trailing" id="Bjy-9i-VNZ"/>
+                            <constraint firstAttribute="trailing" secondItem="nyi-rX-gbu" secondAttribute="trailing" constant="20" id="Bjy-9i-VNZ"/>
                             <constraint firstItem="tNS-Nw-ci5" firstAttribute="top" secondItem="x4L-wM-rgf" secondAttribute="bottom" id="DLq-nf-er7"/>
                             <constraint firstItem="tNS-Nw-ci5" firstAttribute="leading" secondItem="7Ip-H5-lZj" secondAttribute="leading" id="XBu-RS-PMT"/>
                             <constraint firstItem="zr5-2j-npA" firstAttribute="top" secondItem="tNS-Nw-ci5" secondAttribute="bottom" id="bpq-jZ-xtP"/>

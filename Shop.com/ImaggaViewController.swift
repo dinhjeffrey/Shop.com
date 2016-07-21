@@ -30,6 +30,12 @@ class ImaggaViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        // resets any image placed in before
+        imageView.image = nil
+    }
+    
     
     // MARK: - IBActions
     
@@ -95,6 +101,7 @@ class ImaggaViewController: UIViewController {
     
 }
 
+// Network calls
 // MARK: - UIImagePickerControllerDelegate
 extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -105,44 +112,44 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
             dismissViewControllerAnimated(true, completion: nil)
             return
         }
-        
+        // sets imageView to the image taken
         imageView.image = image
-        
+        // hides button. starts and shows progress view and activity indicator
         takePhotoButton.hidden = true
         progressView.progress = 0.0
         progressView.hidden = false
         activityIndicatorView.startAnimating()
         
-        // called method uploadImage
+        // called method uploadImage. everything with alamofire is asynchronous. updates UI in async manner
         uploadImage(
             image,
             // animates progress bar
             progress: { [weak weakSelf = self] percent in
-                //2
+                //2. while progress file uploads, calls the progress handler with percent update
                 weakSelf?.progressView.setProgress(percent, animated: true)
             },
             completion: { [weak weakSelf = self] tags in
-                // 3
-                weakSelf?.takePhotoButton.hidden = false
-                weakSelf?.progressView.hidden = true
-                weakSelf?.activityIndicatorView.stopAnimating()
+                // 3. completion handler sets controllers back to their original state
+//                weakSelf?.takePhotoButton.hidden = false
+//                weakSelf?.progressView.hidden = true
+//                weakSelf?.activityIndicatorView.stopAnimating()
                 
                 weakSelf?.tags = tags
                 
-                // 4
-  //              self.performSegueWithIdentifier(Storyboard.ShowResults, sender: self)
+                // 4. advances to results results screen after successful or unsuccessful upload
+                //              self.performSegueWithIdentifier(Storyboard.ShowResults, sender: self)
             })
-        // returns back to ImaggaViewController
+        // returns back to ImaggaViewController before completion handler is done to show image and progress indicator
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // uploads photo to ImaggaAPI. Imagga API uses JPEG image format
     func uploadImage(image: UIImage, progress: (percent: Float) -> Void,
                      completion: (tags: [String]) -> Void) {
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else {
             print("Could not get JPEG representation of UIImage")
             return
         }
-        // uploads to ImaggaAPI
         Alamofire.upload(
             ImaggaRouter.Content,
             multipartFormData: { multipartFormData in
@@ -161,11 +168,13 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                     upload.validate()
                     upload.responseJSON { response in
                         guard response.result.isSuccess else {
+                            
                             // 1.
                             print("Error while uploading file: \(response.result.error)")
                             completion(tags: [String()])
                             return
                         }
+                        
                         // 2.
                         guard let responseJSON = response.result.value as? [String: AnyObject],
                             uploadedFiles = responseJSON["uploaded"] as? [AnyObject],
@@ -175,53 +184,50 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                                 completion(tags: [String]())
                                 return
                         }
-                        
                         print("Content uploaded with ID: \(firstFileID)")
+                        
                         // 3.
-//                        self.downloadTags(firstFileID) { tags in
-//                            completion(tags: tags)
-//                        }
+                        self.downloadTags(firstFileID) { tags in
+                            completion(tags: tags)
+                        }
                     }
-                    
                 case .Failure(let encodingError):
                     print(encodingError)
                 }
         })
     }
-    //
-    //
-    //
-    //
-    //    func downloadTags(contentID: String, completion: ([String]) -> Void) {
-    //        Alamofire.request(ImaggaRouter.Tags(contentID))
-    //            .responseJSON { response in
-    //                // 1.
-    //                guard response.result.isSuccess else {
-    //                    print("Error while fetching tags: \(response.result.error)")
-    //                    completion([String]())
-    //                    return
-    //                }
-    //
-    //                // 2.
-    //                guard let responseJSON = response.result.value as? [String: AnyObject],
-    //                    results = responseJSON["results"] as? [AnyObject],
-    //                    firstResult = results.first,
-    //                    tagsAndConfidences = firstResult["tags"] as? [[String: AnyObject]] else {
-    //                        print("Invalid tag information received from service")
-    //                        completion([String]())
-    //                        return
-    //                }
-    //
-    //                // 3.
-    //                let tags = tagsAndConfidences.flatMap({ dict in
-    //                    return dict["tag"] as? String
-    //                })
-    //
-    //                // 4.
-    //                completion(tags)
-    //        }
-    //    }
-    //
+    
+    // downloads tags from Imagga API
+    func downloadTags(contentID: String, completion: ([String]) -> Void) {
+        Alamofire.request(ImaggaRouter.Tags(contentID))
+            .responseJSON { response in
+                // 1.
+                guard response.result.isSuccess else {
+                    print("Error while fetching tags: \(response.result.error)")
+                    completion([String]())
+                    return
+                }
+                
+                // 2.
+                guard let responseJSON = response.result.value as? [String: AnyObject],
+                    results = responseJSON["results"] as? [AnyObject],
+                    firstResult = results.first,
+                    tagsAndConfidences = firstResult["tags"] as? [[String: AnyObject]] else {
+                        print("Invalid tag information received from service")
+                        completion([String]())
+                        return
+                }
+                
+                // 3.
+                let tags = tagsAndConfidences.flatMap({ dict in
+                    return dict["tag"] as? String
+                })
+                
+                // 4.
+                completion(tags)
+        }
+    }
+    
     //    func downloadColors(contentID: String, completion: ([PhotoColor]) -> Void) {
     //        Alamofire.request(ImaggaRouter.Colors(contentID))
     //            // 1.
