@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7vn-cP-k4S">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -48,13 +48,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="APN APIs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5v-Ox-7rR">
                                 <rect key="frame" x="20" y="28" width="73" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Public APIs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJB-Og-Oa6">
                                 <rect key="frame" x="20" y="236" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQd-4a-l60">
@@ -71,6 +71,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="351" y="358"/>
+        </scene>
+        <!--Imagga View Controller-->
+        <scene sceneID="Wvh-t7-5E4">
+            <objects>
+                <viewController id="7vn-cP-k4S" customClass="ImaggaViewController" customModule="Shop_com" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x4L-wM-rgf"/>
+                        <viewControllerLayoutGuide type="bottom" id="zr5-2j-npA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Ip-H5-lZj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tNS-Nw-ci5">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-D4-io5">
+                                <rect key="frame" x="246" y="290.5" width="109" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Take Photo"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="7vn-cP-k4S" eventType="touchUpInside" id="oFv-E6-dEO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SbI-D4-io5" firstAttribute="centerX" secondItem="tNS-Nw-ci5" secondAttribute="centerX" id="2WI-7w-TAT"/>
+                            <constraint firstAttribute="trailing" secondItem="tNS-Nw-ci5" secondAttribute="trailing" id="BBJ-Nm-nt8"/>
+                            <constraint firstItem="tNS-Nw-ci5" firstAttribute="top" secondItem="x4L-wM-rgf" secondAttribute="bottom" id="DLq-nf-er7"/>
+                            <constraint firstItem="tNS-Nw-ci5" firstAttribute="leading" secondItem="7Ip-H5-lZj" secondAttribute="leading" id="XBu-RS-PMT"/>
+                            <constraint firstItem="zr5-2j-npA" firstAttribute="top" secondItem="tNS-Nw-ci5" secondAttribute="bottom" id="bpq-jZ-xtP"/>
+                            <constraint firstItem="SbI-D4-io5" firstAttribute="centerY" secondItem="tNS-Nw-ci5" secondAttribute="centerY" id="xg1-r9-iof"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="tNS-Nw-ci5" id="Tgk-gl-rqh"/>
+                        <outlet property="takePhotoButton" destination="SbI-D4-io5" id="D2K-lb-hFs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6oh-S0-IfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-309" y="358"/>
         </scene>
     </scenes>
 </document>
