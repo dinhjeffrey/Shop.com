@@ -13,6 +13,7 @@
 		0013BBA31D3C4C75006E44B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0013BBA21D3C4C75006E44B4 /* Assets.xcassets */; };
 		0013BBA61D3C4C75006E44B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0013BBA41D3C4C75006E44B4 /* LaunchScreen.storyboard */; };
 		00801A5C1D416FF300931A06 /* ImaggaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00801A5B1D416FF300931A06 /* ImaggaViewController.swift */; };
+		00801A5E1D4179CE00931A06 /* ImaggaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00801A5D1D4179CE00931A06 /* ImaggaRouter.swift */; };
 		1BCA444499D05EB6567B92E3 /* Pods_Shop_com.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6630499336A5AA56569183E /* Pods_Shop_com.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		0013BBA51D3C4C75006E44B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0013BBA71D3C4C75006E44B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00801A5B1D416FF300931A06 /* ImaggaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImaggaViewController.swift; sourceTree = "<group>"; };
+		00801A5D1D4179CE00931A06 /* ImaggaRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImaggaRouter.swift; sourceTree = "<group>"; };
 		CE5FFE842A7BADC4146A0C28 /* Pods-Shop.com.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.com.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shop.com/Pods-Shop.com.release.xcconfig"; sourceTree = "<group>"; };
 		E4DBD7AFE6D30022E41F30FE /* Pods-Shop.com.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.com.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shop.com/Pods-Shop.com.debug.xcconfig"; sourceTree = "<group>"; };
 		E6630499336A5AA56569183E /* Pods_Shop_com.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shop_com.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +67,7 @@
 			children = (
 				00801A5B1D416FF300931A06 /* ImaggaViewController.swift */,
 				0013BB9D1D3C4C75006E44B4 /* ShopViewController.swift */,
+				00801A5D1D4179CE00931A06 /* ImaggaRouter.swift */,
 				0013BB9F1D3C4C75006E44B4 /* Main.storyboard */,
 				0013BBAD1D3C4C7E006E44B4 /* Supporting Files */,
 			);
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00801A5E1D4179CE00931A06 /* ImaggaRouter.swift in Sources */,
 				0013BB9E1D3C4C75006E44B4 /* ShopViewController.swift in Sources */,
 				00801A5C1D416FF300931A06 /* ImaggaViewController.swift in Sources */,
 				0013BB9C1D3C4C75006E44B4 /* AppDelegate.swift in Sources */,

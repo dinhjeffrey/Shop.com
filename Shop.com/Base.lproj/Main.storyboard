@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7vn-cP-k4S">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h2O-1F-wck">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -70,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="351" y="358"/>
+            <point key="canvasLocation" x="1163" y="358"/>
         </scene>
         <!--Imagga View Controller-->
         <scene sceneID="Wvh-t7-5E4">
@@ -84,34 +84,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tNS-Nw-ci5">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-D4-io5">
-                                <rect key="frame" x="246" y="290.5" width="109" height="39"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SbI-D4-io5">
+                                <rect key="frame" x="246" y="290" width="109" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
                                     <action selector="takePhoto:" destination="7vn-cP-k4S" eventType="touchUpInside" id="oFv-E6-dEO"/>
                                 </connections>
                             </button>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="nyi-rX-gbu">
+                                <rect key="frame" x="0.0" y="498" width="600" height="2"/>
+                            </progressView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="drf-g3-cZW">
+                                <rect key="frame" x="282" y="399" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tNS-Nw-ci5">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="nyi-rX-gbu" firstAttribute="leading" secondItem="7Ip-H5-lZj" secondAttribute="leading" id="03h-9W-bCO"/>
                             <constraint firstItem="SbI-D4-io5" firstAttribute="centerX" secondItem="tNS-Nw-ci5" secondAttribute="centerX" id="2WI-7w-TAT"/>
                             <constraint firstAttribute="trailing" secondItem="tNS-Nw-ci5" secondAttribute="trailing" id="BBJ-Nm-nt8"/>
+                            <constraint firstAttribute="trailing" secondItem="nyi-rX-gbu" secondAttribute="trailing" id="Bjy-9i-VNZ"/>
                             <constraint firstItem="tNS-Nw-ci5" firstAttribute="top" secondItem="x4L-wM-rgf" secondAttribute="bottom" id="DLq-nf-er7"/>
                             <constraint firstItem="tNS-Nw-ci5" firstAttribute="leading" secondItem="7Ip-H5-lZj" secondAttribute="leading" id="XBu-RS-PMT"/>
                             <constraint firstItem="zr5-2j-npA" firstAttribute="top" secondItem="tNS-Nw-ci5" secondAttribute="bottom" id="bpq-jZ-xtP"/>
+                            <constraint firstItem="drf-g3-cZW" firstAttribute="centerX" secondItem="tNS-Nw-ci5" secondAttribute="centerX" id="dTr-EI-Nff"/>
+                            <constraint firstItem="zr5-2j-npA" firstAttribute="top" secondItem="nyi-rX-gbu" secondAttribute="bottom" constant="100" id="ff0-wH-pPw"/>
+                            <constraint firstItem="nyi-rX-gbu" firstAttribute="top" secondItem="drf-g3-cZW" secondAttribute="bottom" constant="62" id="frJ-lG-n8k"/>
                             <constraint firstItem="SbI-D4-io5" firstAttribute="centerY" secondItem="tNS-Nw-ci5" secondAttribute="centerY" id="xg1-r9-iof"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Imagga View Controller" id="K01-QN-wVK"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="drf-g3-cZW" id="rog-I0-05c"/>
                         <outlet property="imageView" destination="tNS-Nw-ci5" id="Tgk-gl-rqh"/>
+                        <outlet property="progressView" destination="nyi-rX-gbu" id="db8-4O-evh"/>
                         <outlet property="takePhotoButton" destination="SbI-D4-io5" id="D2K-lb-hFs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6oh-S0-IfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="503" y="358"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XuY-lk-40s">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="h2O-1F-wck" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c3S-e2-vN9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7vn-cP-k4S" kind="relationship" relationship="rootViewController" id="hlW-PL-pRF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N7h-Jz-yde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-309" y="358"/>
         </scene>
