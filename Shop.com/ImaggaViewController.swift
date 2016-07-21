@@ -11,6 +11,11 @@ import UIKit
 
 class ImaggaViewController: UIViewController {
     
+    // Storyboard constants
+    struct Storyboard {
+        static let ShowResults = "ShowResults"
+    }
+    
     // MARK: - IBOutlets
     @IBOutlet weak var takePhotoButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
@@ -108,11 +113,13 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
         progressView.hidden = false
         activityIndicatorView.startAnimating()
         
+        // called method uploadImage
         uploadImage(
             image,
-            progress: { [unowned self] percent in
+            // animates progress bar
+            progress: { [weak weakSelf = self] percent in
                 //2
-                self.progressView.setProgress(percent, animated: true)
+                weakSelf?.progressView.setProgress(percent, animated: true)
             },
             completion: { [weak weakSelf = self] tags in
                 // 3
@@ -123,9 +130,9 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                 weakSelf?.tags = tags
                 
                 // 4
-                self.performSegueWithIdentifier("ShowResults", sender: self)
+  //              self.performSegueWithIdentifier(Storyboard.ShowResults, sender: self)
             })
-        
+        // returns back to ImaggaViewController
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -135,6 +142,7 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
             print("Could not get JPEG representation of UIImage")
             return
         }
+        // uploads to ImaggaAPI
         Alamofire.upload(
             ImaggaRouter.Content,
             multipartFormData: { multipartFormData in
