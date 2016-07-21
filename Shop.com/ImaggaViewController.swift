@@ -217,6 +217,7 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                         completion([String]())
                         return
                 }
+                print(responseJSON)
                 
                 // 3.
                 let tags = tagsAndConfidences.flatMap({ dict in
