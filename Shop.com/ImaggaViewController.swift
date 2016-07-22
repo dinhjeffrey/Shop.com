@@ -178,10 +178,14 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                 }
                 print(responseJSON)
                 
+                
                 // 3.
                 let tags = tagsAndConfidences.flatMap({ dict in
                     return dict["tag"] as? String
                 })
+                
+                print(tags)
+                print("build on irl iphone/ipad to take a photo instead of opening photo gallery")
                 
                 // 4.
                 completion(tags)

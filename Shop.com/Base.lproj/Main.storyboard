@@ -76,58 +76,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AoY-z4-ImT">
+                                <rect key="frame" x="220" y="518" width="160" height="30"/>
+                                <state key="normal" title="Imagga View Controller"/>
+                                <connections>
+                                    <segue destination="wmy-bM-ZCt" kind="show" id="d6G-wZ-bgn"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHK-mX-Rb8">
-                                <rect key="frame" x="20" y="57" width="75" height="30"/>
+                                <rect key="frame" x="20" y="119" width="75" height="30"/>
                                 <state key="normal" title="Categories"/>
                                 <connections>
                                     <action selector="categoriesPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="v09-lf-1yy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIV-1R-ktC">
-                                <rect key="frame" x="20" y="95" width="62" height="30"/>
+                                <rect key="frame" x="20" y="157" width="62" height="30"/>
                                 <state key="normal" title="Products"/>
                                 <connections>
                                     <action selector="productsPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pvq-xm-EZ5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="auO-Rf-y7d">
-                                <rect key="frame" x="20" y="133" width="120" height="30"/>
+                                <rect key="frame" x="20" y="195" width="120" height="30"/>
                                 <state key="normal" title="Tax And Shipping"/>
                                 <connections>
                                     <action selector="taxAndShippingPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Twg-7x-8kU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WpN-54-ccf">
-                                <rect key="frame" x="20" y="265" width="98" height="30"/>
+                                <rect key="frame" x="20" y="327" width="98" height="30"/>
                                 <state key="normal" title="searchService"/>
                                 <connections>
                                     <action selector="searchServicePressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="OfL-EF-h7r"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="APN APIs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5v-Ox-7rR">
-                                <rect key="frame" x="20" y="28" width="73" height="21"/>
+                                <rect key="frame" x="20" y="90" width="73" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Public APIs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJB-Og-Oa6">
-                                <rect key="frame" x="20" y="236" width="86" height="21"/>
+                                <rect key="frame" x="20" y="298" width="86" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQd-4a-l60">
-                                <rect key="frame" x="20" y="303" width="105" height="30"/>
+                                <rect key="frame" x="20" y="365" width="105" height="30"/>
                                 <state key="normal" title="productService"/>
                                 <connections>
                                     <action selector="productServicePressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="exO-If-bdk"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AoY-z4-ImT">
-                                <rect key="frame" x="220" y="518" width="160" height="30"/>
-                                <state key="normal" title="Imagga View Controller"/>
-                                <connections>
-                                    <segue destination="wmy-bM-ZCt" kind="show" id="d6G-wZ-bgn"/>
                                 </connections>
                             </button>
                         </subviews>
