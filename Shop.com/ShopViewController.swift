@@ -46,14 +46,6 @@ class ShopViewController: UIViewController {
         taxAndShipping()
     }
     
-    // PUBLIC APIs
-    @IBAction func searchServicePressed() {
-        searchService()
-    }
-    @IBAction func productServicePressed() {
-        productService()
-    }
-    
     // method calls alamofire get request and prints JSON response
     private func alamofireRequest(url: String, parameters: [String: String]) {
         Alamofire.request(
@@ -115,27 +107,7 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params)
     }
-    
-    // MARK: - Public API methods
-    private func searchService() {
-        let term = "Vans"
-        let url = "https://api.shop.com/sites/v1/search/term/\(term)"
-        let params = [
-            "page": "",
-            "count": ""
-        ]
-        alamofireRequest(url, parameters: params)
-    }
-    
-    private func productService() {
-        let prodId = "874694776"
-        let url = "https://api.shop.com/stores/v1/products/\(prodId)"
-        let params = [
-            "allperms": "", // "true" or "false"
-            //            "siteId": "" // not working when enabled. not sure why
-        ]
-        alamofireRequest(url, parameters: params)
-    }
+
     
     
     
