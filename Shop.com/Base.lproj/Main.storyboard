@@ -7,6 +7,39 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Search2VC-->
+        <scene sceneID="tza-Jl-94X">
+            <objects>
+                <viewController id="5Um-Vi-xcE" customClass="Search2VC" customModule="Shop_com" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uJh-Gm-clE"/>
+                        <viewControllerLayoutGuide type="bottom" id="kch-U2-FLp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PSo-aa-Mb8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kp4-0z-cEd">
+                                <rect key="frame" x="20" y="28" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kp4-0z-cEd" firstAttribute="leading" secondItem="PSo-aa-Mb8" secondAttribute="leading" constant="20" id="34P-6C-sxl"/>
+                            <constraint firstItem="Kp4-0z-cEd" firstAttribute="top" secondItem="uJh-Gm-clE" secondAttribute="bottom" constant="8" id="3Ot-3v-cqV"/>
+                            <constraint firstAttribute="trailing" secondItem="Kp4-0z-cEd" secondAttribute="trailing" constant="20" id="QsC-FI-gBd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="Kp4-0z-cEd" id="ZQt-GA-r9V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0uq-MF-S8O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="729" y="1094"/>
+        </scene>
         <!--Imagga View Controller-->
         <scene sceneID="uvl-Og-c8g">
             <objects>
@@ -58,11 +91,12 @@
                         <outlet property="imageView" destination="YMW-tG-H4J" id="nk7-7W-8he"/>
                         <outlet property="progressView" destination="7aD-9g-U8W" id="MqB-hU-fK2"/>
                         <outlet property="takePhotoButton" destination="b5y-1e-lhg" id="3XC-2e-oCH"/>
+                        <segue destination="5Um-Vi-xcE" kind="show" identifier="Show Search2VC" id="fOt-50-vrb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uwM-wy-U5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1163" y="1074"/>
+            <point key="canvasLocation" x="69" y="1094"/>
         </scene>
         <!--Shop View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -128,7 +162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1163" y="358"/>
+            <point key="canvasLocation" x="69" y="358"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yS1-Ky-oxe">
@@ -371,7 +405,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Zm-Oo-SI3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="351" y="358"/>
+            <point key="canvasLocation" x="-561" y="358"/>
         </scene>
     </scenes>
 </document>

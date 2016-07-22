@@ -13,7 +13,7 @@ class ImaggaViewController: UIViewController {
     
     // Storyboard constants
     struct Storyboard {
-        static let ShowResults = "ShowResults"
+        static let ShowSearch2VC = "Show Search2VC"
     }
     
     // MARK: - IBOutlets
@@ -22,7 +22,7 @@ class ImaggaViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-        // MARK: - IBActions
+    // MARK: - IBActions
     @IBAction func takePhoto(sender: UIButton) {
         takePhoto()
     }
@@ -44,7 +44,7 @@ class ImaggaViewController: UIViewController {
     }
     
     
-
+    
     // Methods
     // method takes user to camera app when pressing takePhoto button. After take a photo can either "retake" or "use photo"
     private func takePhoto() {
@@ -90,13 +90,13 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
             },
             completion: { [weak weakSelf = self] tags in
                 // 3. completion handler sets controllers back to their original state
-                //                weakSelf?.takePhotoButton.hidden = false
-                //                weakSelf?.progressView.hidden = true
-                //                weakSelf?.activityIndicatorView.stopAnimating()
+                weakSelf?.takePhotoButton.hidden = false
+                weakSelf?.progressView.hidden = true
+                weakSelf?.activityIndicatorView.stopAnimating()
                 
                 weakSelf?.tags = tags
                 // 4. advances to results results screen after successful or unsuccessful upload
-                //              self.performSegueWithIdentifier(Storyboard.ShowResults, sender: self)
+                self.performSegueWithIdentifier(Storyboard.ShowSearch2VC, sender: self)
             })
         // returns back to ImaggaViewController before completion handler is done to show image and progress indicator
         dismissViewControllerAnimated(true, completion: nil)

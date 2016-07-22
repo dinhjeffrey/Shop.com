@@ -12,6 +12,7 @@
 		0013BBA11D3C4C75006E44B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0013BB9F1D3C4C75006E44B4 /* Main.storyboard */; };
 		0013BBA31D3C4C75006E44B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0013BBA21D3C4C75006E44B4 /* Assets.xcassets */; };
 		0013BBA61D3C4C75006E44B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0013BBA41D3C4C75006E44B4 /* LaunchScreen.storyboard */; };
+		006C71C71D42CE02005AD04A /* Search2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006C71C61D42CE02005AD04A /* Search2VC.swift */; };
 		00801A601D419D8500931A06 /* ImaggaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00801A5F1D419D8500931A06 /* ImaggaViewController.swift */; };
 		00801A621D419DBD00931A06 /* ImaggaRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00801A611D419DBD00931A06 /* ImaggaRouter.swift */; };
 		1BCA444499D05EB6567B92E3 /* Pods_Shop_com.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6630499336A5AA56569183E /* Pods_Shop_com.framework */; };
@@ -31,6 +32,7 @@
 		0013BBA21D3C4C75006E44B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0013BBA51D3C4C75006E44B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0013BBA71D3C4C75006E44B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		006C71C61D42CE02005AD04A /* Search2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search2VC.swift; sourceTree = "<group>"; };
 		00801A5F1D419D8500931A06 /* ImaggaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImaggaViewController.swift; sourceTree = "<group>"; };
 		00801A611D419DBD00931A06 /* ImaggaRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImaggaRouter.swift; sourceTree = "<group>"; };
 		491B34301D403F5F0058123E /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -80,13 +82,14 @@
 				0013BB9D1D3C4C75006E44B4 /* ShopViewController.swift */,
 				00801A5F1D419D8500931A06 /* ImaggaViewController.swift */,
 				00801A611D419DBD00931A06 /* ImaggaRouter.swift */,
+				006C71C61D42CE02005AD04A /* Search2VC.swift */,
 				491B34301D403F5F0058123E /* SearchVC.swift */,
 				491B34371D40ED640058123E /* SubcategoryVC.swift */,
 				491B34391D40ED6E0058123E /* ItemsVC.swift */,
 				491B34331D4041AE0058123E /* SearchBox.swift */,
 				491B34351D4041CD0058123E /* SearchBox.xib */,
-				0013BB9F1D3C4C75006E44B4 /* Main.storyboard */,
 				491B343B1D40FA460058123E /* WishListVC.swift */,
+				0013BB9F1D3C4C75006E44B4 /* Main.storyboard */,
 				0013BBAD1D3C4C7E006E44B4 /* Supporting Files */,
 			);
 			path = Shop.com;
@@ -244,6 +247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				491B34311D403F5F0058123E /* SearchVC.swift in Sources */,
+				006C71C71D42CE02005AD04A /* Search2VC.swift in Sources */,
 				491B343A1D40ED6E0058123E /* ItemsVC.swift in Sources */,
 				00801A601D419D8500931A06 /* ImaggaViewController.swift in Sources */,
 				491B34341D4041AE0058123E /* SearchBox.swift in Sources */,
