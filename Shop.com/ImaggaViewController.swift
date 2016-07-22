@@ -22,8 +22,9 @@ class ImaggaViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-    private var tags: [String]?
-    
+    // store downloaded tags from Imagga API. tags are the recommendations
+    typealias recommendation = String
+    private var tags: [recommendation]?
     
     
     override func viewDidLoad() {
@@ -56,49 +57,6 @@ class ImaggaViewController: UIViewController {
         }
         presentViewController(picker, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 // Network calls
@@ -135,7 +93,6 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
 //                weakSelf?.activityIndicatorView.stopAnimating()
                 
                 weakSelf?.tags = tags
-                
                 // 4. advances to results results screen after successful or unsuccessful upload
                 //              self.performSegueWithIdentifier(Storyboard.ShowResults, sender: self)
             })
@@ -166,7 +123,7 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                         }
                     }
                     upload.validate()
-                    upload.responseJSON { response in
+                    upload.responseJSON { [weak weakSelf = self] response in
                         guard response.result.isSuccess else {
                             
                             // 1.
@@ -187,7 +144,7 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                         print("Content uploaded with ID: \(firstFileID)")
                         
                         // 3.
-                        self.downloadTags(firstFileID) { tags in
+                        weakSelf?.downloadTags(firstFileID) { tags in
                             completion(tags: tags)
                         }
                     }
@@ -228,61 +185,4 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                 completion(tags)
         }
     }
-    
-    //    func downloadColors(contentID: String, completion: ([PhotoColor]) -> Void) {
-    //        Alamofire.request(ImaggaRouter.Colors(contentID))
-    //            // 1.
-    //            .responseJSON { response in
-    //                // 2.
-    //                guard response.result.isSuccess else {
-    //                    print("Error while fetching colors: \(response.result.error)")
-    //                    completion([PhotoColor]())
-    //                    return
-    //                }
-    //
-    //                // 3.
-    //                guard let responseJSON = response.result.value as? [String: AnyObject],
-    //                    results = responseJSON["results"] as? [AnyObject],
-    //                    firstResult = results.first as? [String: AnyObject],
-    //                    info = firstResult["info"] as? [String: AnyObject],
-    //                    imageColors = info["image_colors"] as? [[String: AnyObject]] else {
-    //                        print("Invalid color information received from service")
-    //                        completion([PhotoColor]())
-    //                        return
-    //                }
-    //
-    //                // 4.
-    //                let photoColors = imageColors.flatMap({ dict -> PhotoColor? in
-    //                    guard let r = dict["r"] as? String,
-    //                        g = dict["g"] as? String,
-    //                        b = dict["b"] as? String,
-    //                        closestPaletteColor = dict["closest_palette_color"] as? String else {
-    //                            return nil
-    //                    }
-    //                    return PhotoColor(red: Int(r),
-    //                        green: Int(g),
-    //                        blue: Int(b),
-    //                        colorName: closestPaletteColor)
-    //                })
-    //
-    //                // 5.
-    //                completion(photoColors)
-    //        }
-    //    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
