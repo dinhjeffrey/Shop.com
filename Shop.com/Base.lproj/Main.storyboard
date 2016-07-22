@@ -20,19 +20,58 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kp4-0z-cEd">
-                                <rect key="frame" x="20" y="28" width="560" height="30"/>
+                                <rect key="frame" x="20" y="72" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2C-He-spW">
+                                <rect key="frame" x="138" y="115" width="133" height="30"/>
+                                <state key="normal" title="Recommendation 2"/>
+                                <connections>
+                                    <action selector="recommendationPressed:" destination="5Um-Vi-xcE" eventType="touchUpInside" id="g8J-14-S9L"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBO-KJ-PLb">
+                                <rect key="frame" x="279" y="115" width="133" height="30"/>
+                                <state key="normal" title="Recommendation 3"/>
+                                <connections>
+                                    <action selector="recommendationPressed:" destination="5Um-Vi-xcE" eventType="touchUpInside" id="MbR-zk-FJ0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N0-CH-0Ad">
+                                <rect key="frame" x="420" y="115" width="134" height="30"/>
+                                <state key="normal" title="Recommendation 4"/>
+                                <connections>
+                                    <action selector="recommendationPressed:" destination="5Um-Vi-xcE" eventType="touchUpInside" id="f9R-xt-vZd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you mean:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sd-OL-il9">
+                                <rect key="frame" x="20" y="119" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.25096691807307481" blue="0.077490987578259674" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kp4-0z-cEd" firstAttribute="leading" secondItem="PSo-aa-Mb8" secondAttribute="leading" constant="20" id="34P-6C-sxl"/>
                             <constraint firstItem="Kp4-0z-cEd" firstAttribute="top" secondItem="uJh-Gm-clE" secondAttribute="bottom" constant="8" id="3Ot-3v-cqV"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="2sd-OL-il9" secondAttribute="leading" id="751-Om-oCP"/>
+                            <constraint firstItem="bBO-KJ-PLb" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="13" id="Dnr-Mm-r6C"/>
+                            <constraint firstItem="bBO-KJ-PLb" firstAttribute="leading" secondItem="O2C-He-spW" secondAttribute="trailing" constant="8" id="Ju9-Pm-4v2"/>
+                            <constraint firstItem="O2C-He-spW" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="13" id="Kln-PC-Qwn"/>
+                            <constraint firstItem="2sd-OL-il9" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="17" id="Pam-s4-pb8"/>
                             <constraint firstAttribute="trailing" secondItem="Kp4-0z-cEd" secondAttribute="trailing" constant="20" id="QsC-FI-gBd"/>
+                            <constraint firstItem="1N0-CH-0Ad" firstAttribute="leading" secondItem="bBO-KJ-PLb" secondAttribute="trailing" constant="8" id="heK-th-OQT"/>
+                            <constraint firstItem="1N0-CH-0Ad" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="13" id="pvm-M0-pC8"/>
+                            <constraint firstItem="O2C-He-spW" firstAttribute="leading" secondItem="2sd-OL-il9" secondAttribute="trailing" constant="8" id="wBc-by-Prz"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="didYouMean" destination="2sd-OL-il9" id="IDb-w6-cYu"/>
+                        <outlet property="recommendation2" destination="O2C-He-spW" id="GBA-B4-GsK"/>
+                        <outlet property="recommendation3" destination="bBO-KJ-PLb" id="WEI-zk-94f"/>
+                        <outlet property="recommendation4" destination="1N0-CH-0Ad" id="KjE-gG-bCJ"/>
                         <outlet property="textField" destination="Kp4-0z-cEd" id="ZQt-GA-r9V"/>
                     </connections>
                 </viewController>

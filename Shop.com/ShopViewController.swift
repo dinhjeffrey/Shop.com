@@ -37,7 +37,7 @@ class ShopViewController: UIViewController {
         categories()
     }
     @IBAction func productsPressed() {
-        products()
+        products("")
     }
     @IBAction func productIdPressed() {
         productId()
@@ -64,19 +64,19 @@ class ShopViewController: UIViewController {
     }
     
     // MARK: - APN API methods
-    private func categories() {
+    func categories() {
         let url = self.url + "categories"
         alamofireRequest(url, parameters: params)
     }
     
-    private func products() {
+    func products(term: String) {
         let url = self.url + "products"
         let params = [
             "publisherID": "TEST", // required
             "locale": "en_US", // required
             "start": "", // defaults to 0
             "perPage": "", // defaults to 15
-            "term": "vans",
+            "term": term,
             "categoryId": "",
             "brandId": "",
             "sellerId": "",
@@ -85,13 +85,13 @@ class ShopViewController: UIViewController {
         alamofireRequest(url, parameters: params)
     }
     
-    private func productId() {
+    func productId() {
         let id = "834207132"
         let url = self.url + "products/\(id)"
         alamofireRequest(url, parameters: params)
     }
     
-    private func taxAndShipping() {
+    func taxAndShipping() {
         let url = self.url + "taxandshipping"
         
         let params = [

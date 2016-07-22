@@ -12,25 +12,77 @@ import UIKit
 class Search2VC: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var textField: UITextField!
-
+    @IBOutlet weak var recommendation2: UIButton!
+    @IBOutlet weak var recommendation3: UIButton!
+    @IBOutlet weak var recommendation4: UIButton!
+    @IBOutlet weak var didYouMean: UILabel!
     
+    // MARK: - IBActions
+    @IBAction func recommendationPressed(sender: UIButton) {
+        recommendationPressed(sender.tag)
+    }
+    
+    // MARK: - Constants and Variables
+    let shopVC = ShopViewController()
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // textField.placeholder =
+        // unwraps recommendations from tags downloaded from Imagga API
+        if let firstRecommendation = ImaggaViewController.tags?[0], secondRecommendation = ImaggaViewController.tags?[1], thirdRecommendation = ImaggaViewController.tags?[2], fourthRecommendation = ImaggaViewController.tags?[3] {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
+                // call to Shop product API with first recommendation
+                weakSelf?.shopVC.products(firstRecommendation)
+                dispatch_async(dispatch_get_main_queue()) {
+                    // updates UI
+                    weakSelf?.textField.placeholder = firstRecommendation
+                    weakSelf?.recommendation2.setTitle(secondRecommendation, forState: .Normal)
+                    weakSelf?.recommendation3.setTitle(thirdRecommendation, forState: .Normal)
+                    weakSelf?.recommendation4.setTitle(fourthRecommendation, forState: .Normal)
+                }
+            }
+        }
     }
-
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Methods
+    private func recommendationPressed(tag: Int) {
+        var term = String()
+        var placeholder = String()
+        if let secondRecommendation = ImaggaViewController.tags?[1], thirdRecommendation = ImaggaViewController.tags?[2], fourthRecommendation = ImaggaViewController.tags?[3] {
+            switch tag {
+            case 2:
+                term = secondRecommendation
+                placeholder = (recommendation2.currentTitle)!
+            case 3:
+                term = thirdRecommendation
+                placeholder = (recommendation3.currentTitle)!
+            case 4:
+                term = fourthRecommendation
+                placeholder = (recommendation4.currentTitle)!
+            default:
+                fatalError("unknown button pressed")
+            }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
+                // call to Shop product API with recommendation
+                weakSelf?.shopVC.products(term)
+                dispatch_async(dispatch_get_main_queue()) {
+                    // updates UI
+                    weakSelf?.textField.placeholder = placeholder
+                }
+            }
+        }
     }
-    */
-
+    
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

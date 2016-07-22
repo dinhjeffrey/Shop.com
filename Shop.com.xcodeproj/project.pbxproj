@@ -79,17 +79,17 @@
 		0013BB9A1D3C4C75006E44B4 /* Shop.com */ = {
 			isa = PBXGroup;
 			children = (
+				0013BB9F1D3C4C75006E44B4 /* Main.storyboard */,
 				0013BB9D1D3C4C75006E44B4 /* ShopViewController.swift */,
 				00801A5F1D419D8500931A06 /* ImaggaViewController.swift */,
-				00801A611D419DBD00931A06 /* ImaggaRouter.swift */,
 				006C71C61D42CE02005AD04A /* Search2VC.swift */,
+				00801A611D419DBD00931A06 /* ImaggaRouter.swift */,
 				491B34301D403F5F0058123E /* SearchVC.swift */,
 				491B34371D40ED640058123E /* SubcategoryVC.swift */,
 				491B34391D40ED6E0058123E /* ItemsVC.swift */,
 				491B34331D4041AE0058123E /* SearchBox.swift */,
 				491B34351D4041CD0058123E /* SearchBox.xib */,
 				491B343B1D40FA460058123E /* WishListVC.swift */,
-				0013BB9F1D3C4C75006E44B4 /* Main.storyboard */,
 				0013BBAD1D3C4C7E006E44B4 /* Supporting Files */,
 			);
 			path = Shop.com;

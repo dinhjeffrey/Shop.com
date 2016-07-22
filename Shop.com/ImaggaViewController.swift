@@ -30,7 +30,7 @@ class ImaggaViewController: UIViewController {
     // MARK: - Constants and variables
     // store downloaded tags from Imagga API. tags are the recommendations
     typealias recommendation = String
-    private var tags: [recommendation]?
+    static var tags: [recommendation]?
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
@@ -94,7 +94,7 @@ extension ImaggaViewController : UIImagePickerControllerDelegate, UINavigationCo
                 weakSelf?.progressView.hidden = true
                 weakSelf?.activityIndicatorView.stopAnimating()
                 
-                weakSelf?.tags = tags
+                ImaggaViewController.tags = tags
                 // 4. advances to results results screen after successful or unsuccessful upload
                 self.performSegueWithIdentifier(Storyboard.ShowSearch2VC, sender: self)
             })
