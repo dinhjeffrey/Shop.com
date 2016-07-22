@@ -39,6 +39,9 @@ class ShopViewController: UIViewController {
     @IBAction func productsPressed() {
         products()
     }
+    @IBAction func productIdPressed() {
+        productId()
+    }
     @IBAction func taxAndShippingPressed() {
         taxAndShipping()
     }
@@ -71,24 +74,28 @@ class ShopViewController: UIViewController {
     // MARK: - APN API methods
     private func categories() {
         let url = self.url + "categories"
-        
         alamofireRequest(url, parameters: params)
     }
     
     private func products() {
         let url = self.url + "products"
-        
         let params = [
             "publisherID": "TEST", // required
             "locale": "en_US", // required
             "start": "", // defaults to 0
             "perPage": "", // defaults to 15
-            "term": "",
+            "term": "vans",
             "categoryId": "",
             "brandId": "",
             "sellerId": "",
             "priceRangeId": "" // i.e. "[0.0 TO 10.00]"
         ]
+        alamofireRequest(url, parameters: params)
+    }
+    
+    private func productId() {
+        let id = "834207132"
+        let url = self.url + "products/\(id)"
         alamofireRequest(url, parameters: params)
     }
     
@@ -113,7 +120,6 @@ class ShopViewController: UIViewController {
     private func searchService() {
         let term = "Vans"
         let url = "https://api.shop.com/sites/v1/search/term/\(term)"
-        
         let params = [
             "page": "",
             "count": ""
@@ -124,7 +130,6 @@ class ShopViewController: UIViewController {
     private func productService() {
         let prodId = "874694776"
         let url = "https://api.shop.com/stores/v1/products/\(prodId)"
-        
         let params = [
             "allperms": "", // "true" or "false"
             //            "siteId": "" // not working when enabled. not sure why
