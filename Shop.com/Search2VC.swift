@@ -24,10 +24,10 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // MARK: - Constants and Variables
-    var names = [String]()
-    var imageUrls = [String]()
-    let shopVC = ShopViewController()
-    struct Storyboard {
+    static var names = [String]()
+    static var imageUrls = [String]()
+    private let shopVC = ShopViewController()
+    private struct Storyboard {
         static let Cell = "Cell"
     }
     
@@ -43,13 +43,13 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     if let products = responseObject!["products"] as? [AnyObject] {
                         for product in products {
                             if let imageUrl = product["imageUrl"] as? String, name = product["name"] as? String {
-                                weakSelf?.imageUrls.append(imageUrl)
-                                weakSelf?.names.append(name)
+                                Search2VC.imageUrls.append(imageUrl)
+                                Search2VC.names.append(name)
                             }
                         }
                     }
-                    print(weakSelf?.names)
-                    print(weakSelf?.imageUrls)
+                    print(Search2VC.names)
+                    print(Search2VC.imageUrls)
                     return
                 }
                 dispatch_async(dispatch_get_main_queue()) {
@@ -97,7 +97,7 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: UITableViewDataSource
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Pokemon Go"
+        return "Pokemon Go Rox"
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -110,6 +110,8 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.Cell, forIndexPath: indexPath)
+//        let name = names[indexPath.row]
+//        cell.textLabel?.text = name
         
         return cell
     }
