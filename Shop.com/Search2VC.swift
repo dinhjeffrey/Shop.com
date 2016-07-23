@@ -24,6 +24,7 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // MARK: - Constants and Variables
+    var names = [String]()
     var imageUrls = [String]()
     let shopVC = ShopViewController()
     struct Storyboard {
@@ -41,11 +42,13 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     // print("responseObject = \(responseObject); error = \(error)")
                     if let products = responseObject!["products"] as? [AnyObject] {
                         for product in products {
-                            if let imageUrl = product["imageUrl"] as? String {
+                            if let imageUrl = product["imageUrl"] as? String, name = product["name"] as? String {
                                 weakSelf?.imageUrls.append(imageUrl)
+                                weakSelf?.names.append(name)
                             }
                         }
                     }
+                    print(weakSelf?.names)
                     print(weakSelf?.imageUrls)
                     return
                 }
