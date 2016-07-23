@@ -22,12 +22,9 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBAction func recommendationPressed(sender: UIButton) {
         recommendationPressed(sender.tag)
     }
-    @IBAction func test() {
-        print(ShopViewController.jsonData)
-    }
     
     // MARK: - Constants and Variables
-    var product = [String: AnyObject]()
+    var imageUrls = [String]()
     let shopVC = ShopViewController()
     struct Storyboard {
         static let Cell = "Cell"
@@ -41,7 +38,15 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
                 // call to Shop product API with first recommendation
                 weakSelf?.shopVC.products(firstRecommendation) { responseObject, error in
-                    print("responseObject = \(responseObject); error = \(error)")
+                    // print("responseObject = \(responseObject); error = \(error)")
+                    if let products = responseObject!["products"] as? [AnyObject] {
+                        for product in products {
+                            if let imageUrl = product["imageUrl"] as? String {
+                                weakSelf?.imageUrls.append(imageUrl)
+                            }
+                        }
+                    }
+                    print(weakSelf?.imageUrls)
                     return
                 }
                 dispatch_async(dispatch_get_main_queue()) {
@@ -75,7 +80,9 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
                 // call to Shop product API with recommendation
-                // weakSelf?.shopVC.products(term)
+                weakSelf?.shopVC.products(term) { responseObject, error in
+                    return
+                }
                 dispatch_async(dispatch_get_main_queue()) {
                     // updates UI
                     weakSelf?.textField.placeholder = placeholder
