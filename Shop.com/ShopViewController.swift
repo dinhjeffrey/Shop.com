@@ -4,7 +4,7 @@
 //
 //  Created by jeffrey dinh on 7/17/16.
 //  Copyright © 2016 sara and jeff. All rights reserved.
-// 
+//
 
 import UIKit
 import Alamofire
@@ -30,24 +30,37 @@ class ShopViewController: UIViewController {
     let headers = [
         "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
     ]
+    static var jsonData = [String: AnyObject]()
     
     // MARK: - IBActions
     // APN APIs
     @IBAction func categoriesPressed() {
-        categories()
+        categories() { responseObject, error in
+            print("responseObject = \(responseObject); error = \(error)")
+            return
+        }
     }
     @IBAction func productsPressed() {
-        products("")
+        products("")  { responseObject, error in
+            print("responseObject = \(responseObject); error = \(error)")
+            return
+        }
     }
     @IBAction func productIdPressed() {
-        productId()
+        productId()  { responseObject, error in
+            print("responseObject = \(responseObject); error = \(error)")
+            return
+        }
     }
     @IBAction func taxAndShippingPressed() {
-        taxAndShipping()
+        taxAndShipping()  { responseObject, error in
+            print("responseObject = \(responseObject); error = \(error)")
+            return
+        }
     }
     
     // method calls alamofire get request and prints JSON response
-    private func alamofireRequest(url: String, parameters: [String: String]) {
+    private func alamofireRequest(url: String, parameters: [String: String], completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         Alamofire.request(
             .GET,
             url,
@@ -56,20 +69,27 @@ class ShopViewController: UIViewController {
             )
             .responseJSON { response in
                 print(response.result)   // result of response serialization
+                switch response.result {
+                case .Success(let value):
+                    completionHandler(value as? [String: AnyObject], nil)
+                case .Failure(let error):
+                    completionHandler(nil, error)
+                }
                 
-                if let JSON = response.result.value {
-                    print("JSON: \(JSON)")
+                if let JSON = response.result.value as? [String: AnyObject] {
+                    //print("JSON: \(JSON)")
+                    ShopViewController.jsonData = JSON
                 }
         }
     }
     
     // MARK: - APN API methods
-    func categories() {
+    func categories(completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         let url = self.url + "categories"
-        alamofireRequest(url, parameters: params)
+        alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
     
-    func products(term: String) {
+    func products(term: String, completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         let url = self.url + "products"
         let params = [
             "publisherID": "TEST", // required
@@ -82,16 +102,16 @@ class ShopViewController: UIViewController {
             "sellerId": "",
             "priceRangeId": "" // i.e. "[0.0 TO 10.00]"
         ]
-        alamofireRequest(url, parameters: params)
+        alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
     
-    func productId() {
+    func productId(completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         let id = "834207132"
         let url = self.url + "products/\(id)"
-        alamofireRequest(url, parameters: params)
+        alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
     
-    func taxAndShipping() {
+    func taxAndShipping(completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         let url = self.url + "taxandshipping"
         
         let params = [
@@ -105,9 +125,9 @@ class ShopViewController: UIViewController {
             "country": "",
             "street": ""
         ]
-        alamofireRequest(url, parameters: params)
+        alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-
+    
     
     
     

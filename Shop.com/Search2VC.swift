@@ -9,21 +9,29 @@
 import UIKit
 
 // To be combined with SearchVC
-class Search2VC: UIViewController {
+class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: - IBOutlets
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var recommendation2: UIButton!
     @IBOutlet weak var recommendation3: UIButton!
     @IBOutlet weak var recommendation4: UIButton!
     @IBOutlet weak var didYouMean: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - IBActions
     @IBAction func recommendationPressed(sender: UIButton) {
         recommendationPressed(sender.tag)
     }
+    @IBAction func test() {
+        print(ShopViewController.jsonData)
+    }
     
     // MARK: - Constants and Variables
+    var product = [String: AnyObject]()
     let shopVC = ShopViewController()
+    struct Storyboard {
+        static let Cell = "Cell"
+    }
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() {
@@ -32,7 +40,10 @@ class Search2VC: UIViewController {
         if let firstRecommendation = ImaggaViewController.tags?[0], secondRecommendation = ImaggaViewController.tags?[1], thirdRecommendation = ImaggaViewController.tags?[2], fourthRecommendation = ImaggaViewController.tags?[3] {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
                 // call to Shop product API with first recommendation
-                weakSelf?.shopVC.products(firstRecommendation)
+                weakSelf?.shopVC.products(firstRecommendation) { responseObject, error in
+                    print("responseObject = \(responseObject); error = \(error)")
+                    return
+                }
                 dispatch_async(dispatch_get_main_queue()) {
                     // updates UI
                     weakSelf?.textField.placeholder = firstRecommendation
@@ -64,13 +75,37 @@ class Search2VC: UIViewController {
             }
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
                 // call to Shop product API with recommendation
-                weakSelf?.shopVC.products(term)
+                // weakSelf?.shopVC.products(term)
                 dispatch_async(dispatch_get_main_queue()) {
                     // updates UI
                     weakSelf?.textField.placeholder = placeholder
                 }
             }
         }
+    }
+    
+    // MARK: UITableViewDataSource
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Pokemon Go"
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.Cell, forIndexPath: indexPath)
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // code
     }
     
     

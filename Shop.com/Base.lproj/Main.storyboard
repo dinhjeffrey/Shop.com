@@ -24,6 +24,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you mean:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sd-OL-il9">
+                                <rect key="frame" x="20" y="119" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.25096691807307481" blue="0.077490987578259674" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O2C-He-spW">
                                 <rect key="frame" x="138" y="115" width="133" height="30"/>
                                 <state key="normal" title="Recommendation 2"/>
@@ -45,21 +51,40 @@
                                     <action selector="recommendationPressed:" destination="5Um-Vi-xcE" eventType="touchUpInside" id="f9R-xt-vZd"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you mean:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sd-OL-il9">
-                                <rect key="frame" x="20" y="119" width="110" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.25096691807307481" blue="0.077490987578259674" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FNW-VT-7XI">
+                                <rect key="frame" x="0.0" y="160" width="600" height="440"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="mab-FS-2YP">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mab-FS-2YP" id="aUI-me-hlm">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueX-4p-YCY">
+                                <rect key="frame" x="562" y="115" width="30" height="30"/>
+                                <state key="normal" title="test"/>
+                                <connections>
+                                    <action selector="test" destination="5Um-Vi-xcE" eventType="touchUpInside" id="sG6-7u-ydo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Kp4-0z-cEd" firstAttribute="leading" secondItem="PSo-aa-Mb8" secondAttribute="leading" constant="20" id="34P-6C-sxl"/>
                             <constraint firstItem="Kp4-0z-cEd" firstAttribute="top" secondItem="uJh-Gm-clE" secondAttribute="bottom" constant="8" id="3Ot-3v-cqV"/>
+                            <constraint firstItem="kch-U2-FLp" firstAttribute="top" secondItem="FNW-VT-7XI" secondAttribute="bottom" id="3lX-hn-cDS"/>
+                            <constraint firstAttribute="trailing" secondItem="FNW-VT-7XI" secondAttribute="trailing" id="48H-a4-Uyi"/>
                             <constraint firstAttribute="leadingMargin" secondItem="2sd-OL-il9" secondAttribute="leading" id="751-Om-oCP"/>
+                            <constraint firstItem="FNW-VT-7XI" firstAttribute="top" secondItem="2sd-OL-il9" secondAttribute="bottom" constant="20" id="Apg-4c-7al"/>
                             <constraint firstItem="bBO-KJ-PLb" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="13" id="Dnr-Mm-r6C"/>
                             <constraint firstItem="bBO-KJ-PLb" firstAttribute="leading" secondItem="O2C-He-spW" secondAttribute="trailing" constant="8" id="Ju9-Pm-4v2"/>
                             <constraint firstItem="O2C-He-spW" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="13" id="Kln-PC-Qwn"/>
+                            <constraint firstItem="FNW-VT-7XI" firstAttribute="leading" secondItem="PSo-aa-Mb8" secondAttribute="leading" id="NDW-1N-eCx"/>
                             <constraint firstItem="2sd-OL-il9" firstAttribute="top" secondItem="Kp4-0z-cEd" secondAttribute="bottom" constant="17" id="Pam-s4-pb8"/>
                             <constraint firstAttribute="trailing" secondItem="Kp4-0z-cEd" secondAttribute="trailing" constant="20" id="QsC-FI-gBd"/>
                             <constraint firstItem="1N0-CH-0Ad" firstAttribute="leading" secondItem="bBO-KJ-PLb" secondAttribute="trailing" constant="8" id="heK-th-OQT"/>
@@ -72,6 +97,7 @@
                         <outlet property="recommendation2" destination="O2C-He-spW" id="GBA-B4-GsK"/>
                         <outlet property="recommendation3" destination="bBO-KJ-PLb" id="WEI-zk-94f"/>
                         <outlet property="recommendation4" destination="1N0-CH-0Ad" id="KjE-gG-bCJ"/>
+                        <outlet property="tableView" destination="FNW-VT-7XI" id="Sit-Ti-eci"/>
                         <outlet property="textField" destination="Kp4-0z-cEd" id="ZQt-GA-r9V"/>
                     </connections>
                 </viewController>
