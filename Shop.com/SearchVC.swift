@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 
 class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+   
+    @IBOutlet weak var tableview: UITableView!
+    
     var url = "https://api.shop.com/AffiliatePublisherNetwork/v1/"
     var params = [
         "publisherID": "TEST",
@@ -19,22 +22,21 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
     ]
 
+    var categorycount = 0
+    var categorynames = [AnyObject]?()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        categories()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return categorycount
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCellWithIdentifier("cell")
-        cell?.textLabel?.text = sched[indexPath.row] as! String
+        cell?.textLabel?.text = categorynames![indexPath.row] as! String
         return cell!
     }
     
@@ -48,13 +50,23 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             headers: headers
             )
             .responseJSON { response in
-                print(response.result)   // result of response serialization
-                
                 if let JSON = response.result.value {
-                    print("JSON: \(JSON)")
+                    
+                    for anItem in JSON as! NSDictionary{
+
+                        self.categorycount++
+                        self.categorynames?.append(anItem.value[0]["name"]!!)
+                    }
+ 
                 }
         }
+        
+        print("reloading data...")
+        dispatch_async(dispatch_get_main_queue()) {
+            self.tableview.reloadData()
+        }
     }
+    
     private func products(brand: String) {
         url += "products"
         
@@ -102,7 +114,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         Alamofire.request(
             .GET,
             url,
-            parameters: params,
+            parameters: params as! [String : AnyObject],
             headers: headers
             )
             .responseJSON { response in
