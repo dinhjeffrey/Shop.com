@@ -37,6 +37,7 @@
 		006C71C61D42CE02005AD04A /* Search2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search2VC.swift; sourceTree = "<group>"; };
 		00801A5F1D419D8500931A06 /* ImaggaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImaggaViewController.swift; sourceTree = "<group>"; };
 		00801A611D419DBD00931A06 /* ImaggaRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImaggaRouter.swift; sourceTree = "<group>"; };
+		00C6C3581D44946B003E8DD6 /* subsubcategory format.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "subsubcategory format.playground"; sourceTree = "<group>"; };
 		491B34301D403F5F0058123E /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		491B34331D4041AE0058123E /* SearchBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBox.swift; sourceTree = "<group>"; };
 		491B34351D4041CD0058123E /* SearchBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBox.xib; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 		0013BB9A1D3C4C75006E44B4 /* Shop.com */ = {
 			isa = PBXGroup;
 			children = (
+				00C6C3581D44946B003E8DD6 /* subsubcategory format.playground */,
 				0013BB9F1D3C4C75006E44B4 /* Main.storyboard */,
 				0013BB9D1D3C4C75006E44B4 /* ShopViewController.swift */,
 				00801A5F1D419D8500931A06 /* ImaggaViewController.swift */,

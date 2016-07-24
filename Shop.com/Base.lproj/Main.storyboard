@@ -210,10 +210,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-dC-zLw">
-                                <rect key="frame" x="232" y="119" width="136" height="30"/>
-                                <state key="normal" title="All Category Names"/>
+                                <rect key="frame" x="234" y="119" width="132" height="30"/>
+                                <state key="normal" title="All Categories Data"/>
                                 <connections>
                                     <action selector="allCategoryNamesPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="UEh-Bd-pAn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITe-rb-Vog">
+                                <rect key="frame" x="260" y="157" width="80" height="30"/>
+                                <state key="normal" title="print (Long)"/>
+                                <connections>
+                                    <action selector="printz" destination="BYZ-38-t0r" eventType="touchUpInside" id="xXB-Sm-N3J"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -221,8 +228,10 @@
                         <constraints>
                             <constraint firstItem="AoY-z4-ImT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C0Z-H0-3SR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AoY-z4-ImT" secondAttribute="bottom" constant="52" id="TCn-ej-9g7"/>
+                            <constraint firstItem="ITe-rb-Vog" firstAttribute="top" secondItem="xjf-dC-zLw" secondAttribute="bottom" constant="8" id="VUQ-9N-KA6"/>
                             <constraint firstItem="xjf-dC-zLw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="YqR-rM-Pnv"/>
                             <constraint firstItem="xjf-dC-zLw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jRS-xh-Q3v"/>
+                            <constraint firstItem="ITe-rb-Vog" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ouX-9Q-Hhw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qP3-Yl-y74"/>

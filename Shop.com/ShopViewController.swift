@@ -28,66 +28,63 @@ class ShopViewController: UIViewController {
         "locale": "en_US",
         ]
     let headers = [
-        "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
+        "apikey": "l7xxc296eff5fe82405aa19d43106e218ab6"
     ]
     typealias Category = String
     typealias Subcategory = String
     typealias Name = String
     static var jsonData = [String: AnyObject]()
-    static var categoryNames = [Name]()
-    static var subcategoryNames = [Category: [Name]]()
-    static var subsubcategoryNames = [Category: [Subcategory: [Name]]]() //
+    static var categoryData = [AnyObject]()
+    static var subcategoryData = [AnyObject]()
+    static var subsubcategoryData = [AnyObject]() //
     
     // MARK: - IBActions
     // APN APIs
     @IBAction func categoriesPressed() {
         categories() { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     
     @IBAction func productsPressed() {
         products("")  { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     @IBAction func productIdPressed() {
-        productId()  { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+        productId("")  { responseObject, error in
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     @IBAction func taxAndShippingPressed() {
         taxAndShipping()  { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
+    // add all category, subcategory, and subsubcategory names to arrays
     @IBAction func allCategoryNamesPressed() {
         categories() { responseObject, error in
             if let categories = responseObject!["categories"] as? [AnyObject] {
                 
-                // 1st level category. loops through each category and gets the name and appends it to the array
+                // 1st level category
                 for category in categories {
-                    if let name = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
-                        ShopViewController.categoryNames.append(name)
+                    ShopViewController.categoryData.append(category)
+                    if let _ = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
                         
                         // 2nd level category
                         for subcategory in subcategories {
-                            if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
-                                guard ShopViewController.subcategoryNames[name] != nil else {
-                                    ShopViewController.subcategoryNames[name] = [subcategoryName]
-                                    ShopViewController.subsubcategoryNames[name] = [subcategoryName: []]
-                                    continue }
-                                ShopViewController.subcategoryNames[name]?.append(subcategoryName)
+                            ShopViewController.subcategoryData.append(subcategory)
+                            if let _ = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
                                 
-                                // 3rd level category.
+                                // 3rd level category
                                 for subsubcategory in subsubcategories {
-                                    if let subsubcategoryName = subsubcategory["name"] as? String{
-                                        guard ShopViewController.subsubcategoryNames[name]![subcategoryName] != nil else { ShopViewController.subsubcategoryNames[name]![subcategoryName] = [subsubcategoryName]; continue }
-                                        ShopViewController.subsubcategoryNames[name]![subcategoryName]?.append(subsubcategoryName)
+                                    ShopViewController.subsubcategoryData.append(subsubcategory)
+                                    if let _ = subsubcategory["name"] as? String {
+                                        // get specific data in json
                                     }
                                 }
                             }
@@ -95,12 +92,35 @@ class ShopViewController: UIViewController {
                     }
                 }
             }
-            print(ShopViewController.subsubcategoryNames)
+            return
+        }
+    }
+    @IBAction func printz() {
+        print("category data is \(ShopViewController.categoryData)")
+        print("subCategory data is \(ShopViewController.subcategoryData)")
+        print("subsubCategory data is \(ShopViewController.subsubcategoryData)")
+    }
+    
+    // method calls alamofire get request and prints JSON response
+    // removes dash in ID and does a product call to get all available data for that product
+    // A LOT of imageUrls do not work
+    // still trying to figure out how to search via product id, some responseObject return nil
+    private func parseDashAndProductCall(id: String, categoryName: String, subcategoryName: String) {
+        print(id)
+        var id = id
+        if let dashIndex = id.characters.indexOf("-") {
+            id.removeAtIndex(dashIndex)
+        
+        }
+        if let underscore = id.characters.indexOf("_") {
+            id = id.substringToIndex(underscore.advancedBy(0))
+        }
+        productId(id) { responseObject, error in
+            print("response is \(responseObject)")
             return
         }
     }
     
-    // method calls alamofire get request and prints JSON response
     private func alamofireRequest(url: String, parameters: [String: String], completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         Alamofire.request(
             .GET,
@@ -146,8 +166,8 @@ class ShopViewController: UIViewController {
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
     
-    func productId(completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
-        let id = "834207132"
+    func productId(id: String, completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
+        let id = id
         let url = self.url + "products/\(id)"
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
