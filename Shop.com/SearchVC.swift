@@ -67,7 +67,9 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if(segue.identifier == "items"){
-            let vc = segue.destinationViewController as! ItemsVC
+            if let vc = segue.destinationViewController as? ItemsVC {
+                
+            }
             //Search for items here
             
             //vc.itemnames =

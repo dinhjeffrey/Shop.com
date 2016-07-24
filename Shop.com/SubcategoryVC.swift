@@ -45,7 +45,7 @@ class SubcategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegat
         }else{
             let vc = segue.destinationViewController as! SubSubcategoryVC
             vc.subsubcategorynames = subsubcategorynames[number]
-            vc.items = items[number]
+            vc.items = items
 
         }
     }
