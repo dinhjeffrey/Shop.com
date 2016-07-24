@@ -30,7 +30,13 @@ class ShopViewController: UIViewController {
     let headers = [
         "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
     ]
+    typealias Category = String
+    typealias Subcategory = String
+    typealias Name = String
     static var jsonData = [String: AnyObject]()
+    static var categoryNames = [Name]()
+    static var subcategoryNames = [Category: [Name]]()
+    static var subsubcategoryNames = [Category: [Subcategory: [Name]]]() //
     
     // MARK: - IBActions
     // APN APIs
@@ -40,6 +46,7 @@ class ShopViewController: UIViewController {
             return
         }
     }
+    
     @IBAction func productsPressed() {
         products("")  { responseObject, error in
             print("responseObject = \(responseObject); error = \(error)")
@@ -55,6 +62,40 @@ class ShopViewController: UIViewController {
     @IBAction func taxAndShippingPressed() {
         taxAndShipping()  { responseObject, error in
             print("responseObject = \(responseObject); error = \(error)")
+            return
+        }
+    }
+    @IBAction func allCategoryNamesPressed() {
+        categories() { responseObject, error in
+            if let categories = responseObject!["categories"] as? [AnyObject] {
+                
+                // 1st level category. loops through each category and gets the name and appends it to the array
+                for category in categories {
+                    if let name = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
+                        ShopViewController.categoryNames.append(name)
+                        
+                        // 2nd level category
+                        for subcategory in subcategories {
+                            if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
+                                guard ShopViewController.subcategoryNames[name] != nil else {
+                                    ShopViewController.subcategoryNames[name] = [subcategoryName]
+                                    ShopViewController.subsubcategoryNames[name] = [subcategoryName: []]
+                                    continue }
+                                ShopViewController.subcategoryNames[name]?.append(subcategoryName)
+                                
+                                // 3rd level category.
+                                for subsubcategory in subsubcategories {
+                                    if let subsubcategoryName = subsubcategory["name"] as? String{
+                                        guard ShopViewController.subsubcategoryNames[name]![subcategoryName] != nil else { ShopViewController.subsubcategoryNames[name]![subcategoryName] = [subsubcategoryName]; continue }
+                                        ShopViewController.subsubcategoryNames[name]![subcategoryName]?.append(subsubcategoryName)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            print(ShopViewController.subsubcategoryNames)
             return
         }
     }
@@ -127,6 +168,7 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
+    
     
     
     
