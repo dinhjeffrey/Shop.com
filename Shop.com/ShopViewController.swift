@@ -41,7 +41,7 @@ class ShopViewController: UIViewController {
     static var subcategoryNames = [[String]]()
     static var subcategoryImageUrls = [String]()
     static var subsubcategoryData = [AnyObject]()
-    static var subsubcategoryNames = [String]()
+    static var subsubcategoryNames = [[String]]()
     static var subsubcategoryImageUrls = [String]()
     
     // MARK: - IBActions
@@ -85,7 +85,7 @@ class ShopViewController: UIViewController {
                         // 2nd level category
                         // categorynNames = [names]
                         // subcategorynames [[name, name, name][String][String]]
-                        for subcategory in subcategories {
+                        for (index2, subcategory) in subcategories.enumerate() {
                             if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
                                 ShopViewController.subcategoryData.append(subcategory)
                                 guard ShopViewController.subcategoryNames.indices.contains(index1) != false else {
@@ -98,7 +98,11 @@ class ShopViewController: UIViewController {
                                 for subsubcategory in subsubcategories {
                                     if let subsubcategoryName = subsubcategory["name"] as? String {
                                         ShopViewController.subsubcategoryData.append(subsubcategory)
-                                        ShopViewController.subsubcategoryNames.append(subsubcategoryName)
+                                        guard ShopViewController.subsubcategoryNames.indices.contains(index2) != false else {
+                                            ShopViewController.subsubcategoryNames.append([subsubcategoryName])
+                                            continue
+                                        }
+                                        ShopViewController.subsubcategoryNames[index2].append(subsubcategoryName)
                                     }
                                 }
                             }
@@ -115,7 +119,7 @@ class ShopViewController: UIViewController {
         }
     }
     @IBAction func printz() {
-        print("subcategory Names is: \(ShopViewController.subcategoryNames)")
+        print("subcategory Names is: \(ShopViewController.subsubcategoryNames)")
     }
     
     // method calls alamofire get request and prints JSON response
