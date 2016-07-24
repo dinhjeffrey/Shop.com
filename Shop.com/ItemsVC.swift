@@ -16,7 +16,7 @@ class ItemsVC: UIViewController {
     // MARK: - 属性
     /// 商品模型数组，初始化
     var array = [JFGoodModel]()
-    var numitems = 0
+    var itemnames = [String]()
     
     /// 商品列表cell的重用标识符
     private let goodListCellIdentifier = "goodListCell"
@@ -37,7 +37,7 @@ class ItemsVC: UIViewController {
         // 提醒：这个方法中一般用于初始化控制器中的一些数据、添加子控件等。但是这个方法获取的frame并不一定准确，所以不建议在这个方法约束子控件
         
         // 初始化模型数组，也就是搞点假数据。这里整10个模型
-        for i in 0..<numitems {
+        for i in 0..<itemnames.count {
             var dict = [String : AnyObject]()
             /*
             dict["iconName"] =
@@ -149,7 +149,7 @@ extension ItemsVC: UITableViewDataSource, UITableViewDelegate {
     
     // 第section组有多少个cell,我们这里一共就一组。所以直接返回模型数组的长度
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numitems
+        return itemnames.count
     }
     
     // 创建每个cell

@@ -11,6 +11,6 @@ import UIKit
 class SubSubcategoryVC: UIViewController {
     typealias Subcategory = String
     typealias Name = String
-    var names = [Category: [Subcategory: [Name]]]() //
+    var names = [String]() //
     @IBOutlet weak var tableview: UITableView!
 }

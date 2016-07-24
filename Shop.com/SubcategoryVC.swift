@@ -11,6 +11,10 @@ import UIKit
 class SubcategoryVC: UIViewController {
     typealias Category = String
     typealias Name = String
-    var names = [Category: [Name]]()
+    var subcategorynames = [String]()
     @IBOutlet weak var tableview: UITableView!
+    
+    override func viewDidLoad() {
+        
+    }
 }

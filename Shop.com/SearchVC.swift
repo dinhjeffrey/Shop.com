@@ -13,13 +13,28 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
     let defaults = NSUserDefaults.standardUserDefaults()
     @IBOutlet weak var tableview: UITableView!
+    // MARK: - global constants and variables
+    var url = "https://api.shop.com/AffiliatePublisherNetwork/v1/"
+    let params = [
+        "publisherID": "TEST",
+        "locale": "en_US",
+        ]
+    let headers = [
+        "apikey": "l7xxc296eff5fe82405aa19d43106e218ab6"
+    ]
     typealias Category = String
     typealias Subcategory = String
     typealias Name = String
     static var jsonData = [String: AnyObject]()
-    var categoryNames = [AnyObject]()
-    var subcategoryNames = [Category: [Name]]()
-    var subsubcategoryNames = [Category: [Subcategory: [Name]]]() //
+    var categoryData = [AnyObject]()
+    var categoryNames = [String]()
+    var categoryImageUrls = [String]()
+    var subcategoryData = [AnyObject]()
+    var subcategoryNames = [[String]]()
+    var subcategoryImageUrls = [String]()
+    var subsubcategoryData = [AnyObject]()
+    var subsubcategoryNames = [[String]]()
+    var subsubcategoryImageUrls = [String]()
     var number = 0
     
     override func viewDidLoad() {
@@ -35,37 +50,38 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCellWithIdentifier("cell")
-        cell?.textLabel?.text = categoryNames[indexPath.row] as! String
+        cell?.textLabel?.text = categoryNames[indexPath.row]
         return cell!
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         number = indexPath.row
-        let tempnames = subcategoryNames.values
-        print(tempnames)
-        //self.performSegueWithIdentifier("subcategory", sender: self)
+        //if(subcategoryNames[number] == " "){
+       //     self.performSegueWithIdentifier("items", sender: self)
+        //}else{
+            print(subcategoryNames[number])
+            self.performSegueWithIdentifier("subcategory", sender: self)
+       // }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let vc = segue.destinationViewController as! SubcategoryVC
+        if(segue.identifier == "items"){
+            let vc = segue.destinationViewController as! ItemsVC
+            //Search for items here
+            
+            //vc.itemnames =
 
+        }else{
+            let vc = segue.destinationViewController as! SubcategoryVC
+            vc.subcategorynames = subcategoryNames[number]
+        }
     }
-    
-    
-    var url = "https://api.shop.com/AffiliatePublisherNetwork/v1/"
-    let params = [
-        "publisherID": "TEST",
-        "locale": "en_US",
-        ]
-    let headers = [
-        "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
-    ]
     
     // MARK: - IBActions
     // APN APIs
     func categoriesPressed() {
         categories() { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
@@ -77,65 +93,71 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     func productIdPressed() {
-        productId()  { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+        productId("")  { responseObject, error in
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     func taxAndShippingPressed() {
         taxAndShipping()  { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+            //print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
+    // add all category, subcategory, and subsubcategory names to arrays
     func allCategoryNamesPressed() {
         categories() { responseObject, error in
             if let categories = responseObject!["categories"] as? [AnyObject] {
                 
-                // 1st level category. loops through each category and gets the name and appends it to the array
-                for category in categories {
-                    if let name = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
-                        self.categoryNames.append(name)
+                // 1st level category
+                for (index1, category) in categories.enumerate() {
+                    if let categoryName = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
+                        ShopViewController.categoryData.append(category)
+                        ShopViewController.categoryNames.append(categoryName)
                         
                         // 2nd level category
-                        for subcategory in subcategories {
+                        // categorynNames = [names]
+                        // subcategorynames [[name, name, name][String][String]]
+                        for (index2, subcategory) in subcategories.enumerate() {
                             if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
-                                guard self.subcategoryNames[name] != nil else {
-                                    self.subcategoryNames[name] = [subcategoryName]
-                                    self.subsubcategoryNames[name] = [subcategoryName: []]
-                                    continue }
-                                self.subcategoryNames[name]?.append(subcategoryName)
+                                ShopViewController.subcategoryData.append(subcategory)
+                                guard ShopViewController.subcategoryNames.indices.contains(index1) != false else {
+                                    ShopViewController.subcategoryNames.append([subcategoryName])
+                                    continue
+                                }
+                                ShopViewController.subcategoryNames[index1].append(subcategoryName)
                                 
-                                // 3rd level category.
+                                // 3rd level category
                                 for subsubcategory in subsubcategories {
-                                    if let subsubcategoryName = subsubcategory["name"] as? String{
-                                        guard self.subsubcategoryNames[name]![subcategoryName] != nil else { self.subsubcategoryNames[name]![subcategoryName] = [subsubcategoryName]; continue }
-                                        self.subsubcategoryNames[name]![subcategoryName]?.append(subsubcategoryName)
-
+                                    if let subsubcategoryName = subsubcategory["name"] as? String {
+                                        ShopViewController.subsubcategoryData.append(subsubcategory)
+                                        guard ShopViewController.subsubcategoryNames.indices.contains(index2) != false else {
+                                            ShopViewController.subsubcategoryNames.append([subsubcategoryName])
+                                            continue
+                                        }
+                                        ShopViewController.subsubcategoryNames[index2].append(subsubcategoryName)
                                     }
-                                    
                                 }
                             }
                         }
                     }
-                    
                 }
             }
-            print(self.subsubcategoryNames)
-            print("-----------")
-            print(self.subcategoryNames)
-            self.defaults.setValue(self.subcategoryNames, forKeyPath: "subcategorynames")
-            self.defaults.setValue(self.subsubcategoryNames, forKeyPath: "subsubcategorynames")
-
-            self.reloadTable()
+            self.tableview.reloadData()
+            return
         }
     }
-    
-    func reloadTable(){
-        self.tableview.reloadData()
-        self.tableview.reloadInputViews()
+    func imageUrlsPressed() {
+        for (index, element) in ShopViewController.categoryNames.enumerate() {
+            imageUrls(element)
+        }
     }
     // method calls alamofire get request and prints JSON response
+    // removes dash in ID and does a product call to get all available data for that product
+    // A LOT of imageUrls do not work
+    // still trying to figure out how to search via product id, some responseObject return nil
+    
+    
     private func alamofireRequest(url: String, parameters: [String: String], completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         Alamofire.request(
             .GET,
@@ -172,7 +194,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             "locale": "en_US", // required
             "start": "", // defaults to 0
             "perPage": "", // defaults to 15
-            "term": term,
+            "term": "General Use Sealants",//term,
             "categoryId": "",
             "brandId": "",
             "sellerId": "",
@@ -181,8 +203,8 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
     
-    func productId(completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
-        let id = "834207132"
+    func productId(id: String, completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
+        let id = id
         let url = self.url + "products/\(id)"
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
@@ -203,10 +225,21 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-    
-    
-    
-    
+    private func imageUrls(name: String) {
+        products(name) { responseObject, error in
+            if let products = responseObject?["products"] as? [AnyObject] {
+                for product in products {
+                    if let imageUrl = product["imageUrl"] as? String {
+                        ShopViewController.categoryImageUrls.append(imageUrl)
+                    }
+                }
+                print(ShopViewController.categoryNames.count)
+                print(ShopViewController.categoryImageUrls.count)
+                return
+            }
+        }
+    }
     
 
 }
+

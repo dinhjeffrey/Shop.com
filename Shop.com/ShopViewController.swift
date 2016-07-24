@@ -36,10 +36,13 @@ class ShopViewController: UIViewController {
     static var jsonData = [String: AnyObject]()
     static var categoryData = [AnyObject]()
     static var categoryNames = [String]()
+    static var categoryImageUrls = [String]()
     static var subcategoryData = [AnyObject]()
-    static var subcategoryNames = [String]()
+    static var subcategoryNames = [[String]]()
+    static var subcategoryImageUrls = [String]()
     static var subsubcategoryData = [AnyObject]()
-    static var subsubcategoryNames = [String]()
+    static var subsubcategoryNames = [[String]]()
+    static var subsubcategoryImageUrls = [String]()
     
     // MARK: - IBActions
     // APN APIs
@@ -52,7 +55,7 @@ class ShopViewController: UIViewController {
     
     @IBAction func productsPressed() {
         products("")  { responseObject, error in
-            //print("responseObject = \(responseObject); error = \(error)")
+            print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
@@ -74,22 +77,32 @@ class ShopViewController: UIViewController {
             if let categories = responseObject!["categories"] as? [AnyObject] {
                 
                 // 1st level category
-                for category in categories {
+                for (index1, category) in categories.enumerate() {
                     if let categoryName = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
                         ShopViewController.categoryData.append(category)
                         ShopViewController.categoryNames.append(categoryName)
                         
                         // 2nd level category
-                        for subcategory in subcategories {
+                        // categorynNames = [names]
+                        // subcategorynames [[name, name, name][String][String]]
+                        for (index2, subcategory) in subcategories.enumerate() {
                             if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
                                 ShopViewController.subcategoryData.append(subcategory)
-                                ShopViewController.subcategoryNames.append(subcategoryName)
+                                guard ShopViewController.subcategoryNames.indices.contains(index1) != false else {
+                                    ShopViewController.subcategoryNames.append([subcategoryName])
+                                    continue
+                                }
+                                ShopViewController.subcategoryNames[index1].append(subcategoryName)
                                 
                                 // 3rd level category
                                 for subsubcategory in subsubcategories {
                                     if let subsubcategoryName = subsubcategory["name"] as? String {
                                         ShopViewController.subsubcategoryData.append(subsubcategory)
-                                        ShopViewController.subsubcategoryNames.append(subsubcategoryName)
+                                        guard ShopViewController.subsubcategoryNames.indices.contains(index2) != false else {
+                                            ShopViewController.subsubcategoryNames.append([subsubcategoryName])
+                                            continue
+                                        }
+                                        ShopViewController.subsubcategoryNames[index2].append(subsubcategoryName)
                                     }
                                 }
                             }
@@ -100,31 +113,20 @@ class ShopViewController: UIViewController {
             return
         }
     }
+    @IBAction func imageUrlsPressed() {
+        for (index, element) in ShopViewController.categoryNames.enumerate() {
+            imageUrls(element)
+        }
+    }
     @IBAction func printz() {
-        print("categoryNames is \(ShopViewController.categoryNames)")
-        print("subCategoryNames  is \(ShopViewController.subcategoryNames)")
-        print("subsubCategoryNames is \(ShopViewController.subsubcategoryNames)")
+        print("subcategory Names is: \(ShopViewController.subsubcategoryNames)")
     }
     
     // method calls alamofire get request and prints JSON response
     // removes dash in ID and does a product call to get all available data for that product
     // A LOT of imageUrls do not work
     // still trying to figure out how to search via product id, some responseObject return nil
-    private func parseDashAndProductCall(id: String, categoryName: String, subcategoryName: String) {
-        print(id)
-        var id = id
-        if let dashIndex = id.characters.indexOf("-") {
-            id.removeAtIndex(dashIndex)
-        
-        }
-        if let underscore = id.characters.indexOf("_") {
-            id = id.substringToIndex(underscore.advancedBy(0))
-        }
-        productId(id) { responseObject, error in
-            print("response is \(responseObject)")
-            return
-        }
-    }
+    
     
     private func alamofireRequest(url: String, parameters: [String: String], completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         Alamofire.request(
@@ -162,7 +164,7 @@ class ShopViewController: UIViewController {
             "locale": "en_US", // required
             "start": "", // defaults to 0
             "perPage": "", // defaults to 15
-            "term": term,
+            "term": "General Use Sealants",//term,
             "categoryId": "",
             "brandId": "",
             "sellerId": "",
@@ -193,7 +195,20 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-    
+    private func imageUrls(name: String) {
+        products(name) { responseObject, error in
+            if let products = responseObject?["products"] as? [AnyObject] {
+                for product in products {
+                    if let imageUrl = product["imageUrl"] as? String {
+                        ShopViewController.categoryImageUrls.append(imageUrl)
+                    }
+                }
+                print(ShopViewController.categoryNames.count)
+                print(ShopViewController.categoryImageUrls.count)
+                return
+            }
+        }
+    }
     
     
     
