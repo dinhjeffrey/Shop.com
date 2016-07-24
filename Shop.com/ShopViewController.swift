@@ -35,8 +35,11 @@ class ShopViewController: UIViewController {
     typealias Name = String
     static var jsonData = [String: AnyObject]()
     static var categoryData = [AnyObject]()
+    static var categoryNames = [String]()
     static var subcategoryData = [AnyObject]()
-    static var subsubcategoryData = [AnyObject]() //
+    static var subcategoryNames = [String]()
+    static var subsubcategoryData = [AnyObject]()
+    static var subsubcategoryNames = [String]()
     
     // MARK: - IBActions
     // APN APIs
@@ -72,19 +75,21 @@ class ShopViewController: UIViewController {
                 
                 // 1st level category
                 for category in categories {
-                    ShopViewController.categoryData.append(category)
-                    if let _ = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
+                    if let categoryName = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
+                        ShopViewController.categoryData.append(category)
+                        ShopViewController.categoryNames.append(categoryName)
                         
                         // 2nd level category
                         for subcategory in subcategories {
-                            ShopViewController.subcategoryData.append(subcategory)
-                            if let _ = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
+                            if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
+                                ShopViewController.subcategoryData.append(subcategory)
+                                ShopViewController.subcategoryNames.append(subcategoryName)
                                 
                                 // 3rd level category
                                 for subsubcategory in subsubcategories {
-                                    ShopViewController.subsubcategoryData.append(subsubcategory)
-                                    if let _ = subsubcategory["name"] as? String {
-                                        // get specific data in json
+                                    if let subsubcategoryName = subsubcategory["name"] as? String {
+                                        ShopViewController.subsubcategoryData.append(subsubcategory)
+                                        ShopViewController.subsubcategoryNames.append(subsubcategoryName)
                                     }
                                 }
                             }
@@ -96,9 +101,9 @@ class ShopViewController: UIViewController {
         }
     }
     @IBAction func printz() {
-        print("category data is \(ShopViewController.categoryData)")
-        print("subCategory data is \(ShopViewController.subcategoryData)")
-        print("subsubCategory data is \(ShopViewController.subsubcategoryData)")
+        print("categoryNames is \(ShopViewController.categoryNames)")
+        print("subCategoryNames  is \(ShopViewController.subcategoryNames)")
+        print("subsubCategoryNames is \(ShopViewController.subsubcategoryNames)")
     }
     
     // method calls alamofire get request and prints JSON response
