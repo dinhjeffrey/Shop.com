@@ -25,16 +25,18 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     typealias Category = String
     typealias Subcategory = String
     typealias Name = String
-    static var jsonData = [String: AnyObject]()
-    var categoryData = [AnyObject]()
-    var categoryNames = [String]()
-    var categoryImageUrls = [String]()
-    var subcategoryData = [AnyObject]()
-    var subcategoryNames = [[String]]()
-    var subcategoryImageUrls = [String]()
-    var subsubcategoryData = [AnyObject]()
-    var subsubcategoryNames = [[String]]()
-    var subsubcategoryImageUrls = [String]()
+     var jsonData = [String: AnyObject]()
+     var categoryData = [AnyObject]()
+     var categoryNames = [String]()
+     var categoryImageUrls = [String]()
+     var subcategoryData = [AnyObject]()
+     var subcategoryNames = [[String]]()
+     var subcategoryImageUrls = [String]()
+     var subsubcategoryData = [AnyObject]()
+     var subsubcategoryNames = [[[String]]]()
+     var itemNamesAndImageUrls = [[[String]]]() // triply nested because each subsubcategory name can have a list of items returned when calling product API [ [ [name, imageurl], [name, imageurl] ] ]
+    
+
     var number = 0
     
     override func viewDidLoad() {
@@ -57,11 +59,10 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         number = indexPath.row
         //if(subcategoryNames[number] == " "){
-       //     self.performSegueWithIdentifier("items", sender: self)
+        //     self.performSegueWithIdentifier("items", sender: self)
         //}else{
-            print(subcategoryNames[number])
-            self.performSegueWithIdentifier("subcategory", sender: self)
-       // }
+        self.performSegueWithIdentifier("subcategory", sender: self)
+        // }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -70,41 +71,43 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             //Search for items here
             
             //vc.itemnames =
-
+            
         }else{
             let vc = segue.destinationViewController as! SubcategoryVC
             vc.subcategorynames = subcategoryNames[number]
+            vc.subsubcategorynames = subsubcategoryNames[number]            
+            vc.items = itemNamesAndImageUrls[number]
         }
     }
+    
     
     // MARK: - IBActions
     // APN APIs
     func categoriesPressed() {
         categories() { responseObject, error in
-            //print("responseObject = \(responseObject); error = \(error)")
+           // print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     
     func productsPressed() {
         products("")  { responseObject, error in
-            print("responseObject = \(responseObject); error = \(error)")
+           // print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     func productIdPressed() {
-        productId("")  { responseObject, error in
-            //print("responseObject = \(responseObject); error = \(error)")
+        productId()  { responseObject, error in
+           // print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
     func taxAndShippingPressed() {
         taxAndShipping()  { responseObject, error in
-            //print("responseObject = \(responseObject); error = \(error)")
+           // print("responseObject = \(responseObject); error = \(error)")
             return
         }
     }
-    // add all category, subcategory, and subsubcategory names to arrays
     func allCategoryNamesPressed() {
         categories() { responseObject, error in
             if let categories = responseObject!["categories"] as? [AnyObject] {
@@ -112,52 +115,58 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 // 1st level category
                 for (index1, category) in categories.enumerate() {
                     if let categoryName = category["name"] as? String, subcategories = category["subCategories"] as? [AnyObject] {
-                        ShopViewController.categoryData.append(category)
-                        ShopViewController.categoryNames.append(categoryName)
+                        self.categoryData.append(category)
+                        self.categoryNames.append(categoryName)
                         
                         // 2nd level category
                         // categorynNames = [names]
                         // subcategorynames [[name, name, name][String][String]]
                         for (index2, subcategory) in subcategories.enumerate() {
                             if let subcategoryName = subcategory["name"] as? String, subsubcategories = subcategory["subCategories"] as? [AnyObject] {
-                                ShopViewController.subcategoryData.append(subcategory)
-                                guard ShopViewController.subcategoryNames.indices.contains(index1) != false else {
-                                    ShopViewController.subcategoryNames.append([subcategoryName])
+                                self.subcategoryData.append(subcategory)
+                                guard self.subcategoryNames.indices.contains(index1) != false else {
+                                    self.subcategoryNames.append([subcategoryName])
                                     continue
                                 }
-                                ShopViewController.subcategoryNames[index1].append(subcategoryName)
+                                self.subcategoryNames[index1].append(subcategoryName)
                                 
                                 // 3rd level category
-                                for subsubcategory in subsubcategories {
+                                for subsubcategory in subsubcategories { // [[[ subsubName,   ]]]
                                     if let subsubcategoryName = subsubcategory["name"] as? String {
-                                        ShopViewController.subsubcategoryData.append(subsubcategory)
-                                        guard ShopViewController.subsubcategoryNames.indices.contains(index2) != false else {
-                                            ShopViewController.subsubcategoryNames.append([subsubcategoryName])
+                                        self.subsubcategoryData.append(subsubcategory)
+                                        guard self.subsubcategoryNames.indices.contains(index1) != false else {
+                                            self.subsubcategoryNames.append([[subsubcategoryName]])
                                             continue
                                         }
-                                        ShopViewController.subsubcategoryNames[index2].append(subsubcategoryName)
+                                        guard self.subsubcategoryNames[index1].indices.contains(index2) != false else {
+                                            self.subsubcategoryNames[index1].append([subsubcategoryName])
+                                            continue
+                                        }
+                                        self.subsubcategoryNames[index1][index2].append(subsubcategoryName)
+                                    }  else {
+                                        self.subsubcategoryNames.append([[" "]])
                                     }
                                 }
+                            } else {
+                                self.subcategoryNames.append([" "])
                             }
                         }
+                    } else {
+                        self.categoryNames.append(" ")
                     }
                 }
             }
-            self.tableview.reloadData()
+            self.reloadTable()
+            self.imageUrlsPressed()
             return
         }
     }
-    func imageUrlsPressed() {
-        for (index, element) in ShopViewController.categoryNames.enumerate() {
-            imageUrls(element)
-        }
+    
+    func reloadTable(){
+        self.tableview.reloadData()
+        self.tableview.reloadInputViews()
     }
     // method calls alamofire get request and prints JSON response
-    // removes dash in ID and does a product call to get all available data for that product
-    // A LOT of imageUrls do not work
-    // still trying to figure out how to search via product id, some responseObject return nil
-    
-    
     private func alamofireRequest(url: String, parameters: [String: String], completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
         Alamofire.request(
             .GET,
@@ -194,7 +203,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             "locale": "en_US", // required
             "start": "", // defaults to 0
             "perPage": "", // defaults to 15
-            "term": "General Use Sealants",//term,
+            "term": term,
             "categoryId": "",
             "brandId": "",
             "sellerId": "",
@@ -203,8 +212,8 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
     
-    func productId(id: String, completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
-        let id = id
+    func productId(completionHandler: ([String: AnyObject]?, NSError?) -> ()) {
+        let id = "834207132"
         let url = self.url + "products/\(id)"
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
@@ -225,21 +234,45 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-    private func imageUrls(name: String) {
-        products(name) { responseObject, error in
-            if let products = responseObject?["products"] as? [AnyObject] {
-                for product in products {
-                    if let imageUrl = product["imageUrl"] as? String {
-                        ShopViewController.categoryImageUrls.append(imageUrl)
-                    }
+    
+    func imageUrlsPressed() {
+        // loop through each category
+        for category in self.subsubcategoryNames {
+            // loop through each subcategory
+            for subcategory in category {
+                // loop through each name in subsubcategory
+                for (index, subsubcategoryName) in subcategory.enumerate() {
+                    // adds a lot of [name, imageurl] for each subsubcategory. calls product api on the name
+                    itemNamesAndimageUrls(subsubcategoryName, index: index)
                 }
-                print(ShopViewController.categoryNames.count)
-                print(ShopViewController.categoryImageUrls.count)
-                return
             }
         }
     }
+
+    func itemNamesAndimageUrls(name: String, index: Int) {
+        products(name) { responseObject, error in
+            //print("response OBJECT is: \(responseObject)")
+            if let products = responseObject?["products"] as? [AnyObject] {
+                for product in products {
+                    if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String, description = product["description"] as? String, price = product["minimumPrice"] as? String {
+                        guard self.itemNamesAndImageUrls.indices.contains(index) != false else {
+                            self.itemNamesAndImageUrls.append([[name, imageUrl, description, price]])
+                            continue
+                        }
+                        self.itemNamesAndImageUrls[index].append([name, imageUrl, description, price])
+                    } else {
+                        self.itemNamesAndImageUrls[index].append([" "])
+                    }
+                }
+            }  else {
+                self.itemNamesAndImageUrls.append([[" "]])
+            }
+            //print("items is: \(ShopViewController.itemNamesAndImageUrls)")
+            return
+        }    }
+
+    
+    
     
 
 }
-

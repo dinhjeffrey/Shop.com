@@ -30,9 +30,6 @@ class ShopViewController: UIViewController {
     let headers = [
         "apikey": "l7xxc296eff5fe82405aa19d43106e218ab6"
     ]
-    typealias Category = String
-    typealias Subcategory = String
-    typealias Name = String
     static var jsonData = [String: AnyObject]()
     static var categoryData = [AnyObject]()
     static var categoryNames = [String]()
@@ -41,8 +38,8 @@ class ShopViewController: UIViewController {
     static var subcategoryNames = [[String]]()
     static var subcategoryImageUrls = [String]()
     static var subsubcategoryData = [AnyObject]()
-    static var subsubcategoryNames = [[String]]()
-    static var subsubcategoryImageUrls = [String]()
+    static var subsubcategoryNames = [[[String]]]()
+    static var itemNamesAndImageUrls = [[[String]]]() // triply nested because each subsubcategory name can have a list of items returned when calling product API [ [ [name, imageurl], [name, imageurl] ] ]
     
     // MARK: - IBActions
     // APN APIs
@@ -95,16 +92,24 @@ class ShopViewController: UIViewController {
                                 ShopViewController.subcategoryNames[index1].append(subcategoryName)
                                 
                                 // 3rd level category
-                                for subsubcategory in subsubcategories {
+                                for subsubcategory in subsubcategories { // [[[ subsubName,   ]]]
                                     if let subsubcategoryName = subsubcategory["name"] as? String {
                                         ShopViewController.subsubcategoryData.append(subsubcategory)
-                                        guard ShopViewController.subsubcategoryNames.indices.contains(index2) != false else {
-                                            ShopViewController.subsubcategoryNames.append([subsubcategoryName])
+                                        guard ShopViewController.subsubcategoryNames.indices.contains(index1) != false else {
+                                            ShopViewController.subsubcategoryNames.append([[subsubcategoryName]])
                                             continue
                                         }
-                                        ShopViewController.subsubcategoryNames[index2].append(subsubcategoryName)
+                                        guard ShopViewController.subsubcategoryNames[index1].indices.contains(index2) != false else {
+                                            ShopViewController.subsubcategoryNames[index1].append([subsubcategoryName])
+                                            continue
+                                        }
+                                        ShopViewController.subsubcategoryNames[index1][index2].append(subsubcategoryName)
+                                    }  else {
+                                        ShopViewController.subsubcategoryNames.append([[" "]])
                                     }
                                 }
+                            } else {
+                                ShopViewController.subcategoryNames.append([" "])
                             }
                         }
                     }
@@ -114,12 +119,21 @@ class ShopViewController: UIViewController {
         }
     }
     @IBAction func imageUrlsPressed() {
-        for (index, element) in ShopViewController.categoryNames.enumerate() {
-            imageUrls(element)
+        // loop through each category
+        for category in ShopViewController.subsubcategoryNames {
+            // loop through each subcategory
+            for subcategory in category {
+                // loop through each name in subsubcategory
+                for (index, subsubcategoryName) in subcategory.enumerate() {
+                    // adds a lot of [name, imageurl] for each subsubcategory. calls product api on the name
+                    itemNamesAndimageUrls(subsubcategoryName, index: index)
+                }
+            }
         }
     }
     @IBAction func printz() {
-        print("subcategory Names is: \(ShopViewController.subsubcategoryNames)")
+        print("subcategory Names is: \(ShopViewController.subcategoryNames)")
+        print("subsubCategory Names is: \(ShopViewController.subsubcategoryNames)")
     }
     
     // method calls alamofire get request and prints JSON response
@@ -195,18 +209,23 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-    private func imageUrls(name: String) {
+    private func itemNamesAndimageUrls(name: String, index: Int) {
         products(name) { responseObject, error in
             if let products = responseObject?["products"] as? [AnyObject] {
                 for product in products {
-                    if let imageUrl = product["imageUrl"] as? String {
-                        ShopViewController.categoryImageUrls.append(imageUrl)
+                    if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String {
+                        guard ShopViewController.itemNamesAndImageUrls.indices.contains(index) != false else {
+                            ShopViewController.itemNamesAndImageUrls.append([[name, imageUrl]])
+                            continue
+                        }
+                        ShopViewController.itemNamesAndImageUrls[index].append([name, imageUrl])
+                    } else {
+                        ShopViewController.itemNamesAndImageUrls[index].append([" "])
                     }
                 }
-                print(ShopViewController.categoryNames.count)
-                print(ShopViewController.categoryImageUrls.count)
-                return
             }
+            print("items is: \(ShopViewController.itemNamesAndImageUrls)")
+            return
         }
     }
     
@@ -235,5 +254,5 @@ class ShopViewController: UIViewController {
     
     
     
+    
 }
-
