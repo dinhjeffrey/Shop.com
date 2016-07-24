@@ -13,6 +13,7 @@ class SearchBox: UICollectionViewCell{
     @IBOutlet var name: UILabel!
     @IBOutlet var price: UILabel!
     @IBAction func starTapped(sender: AnyObject) {
+        
     }
 
     override func awakeFromNib() {

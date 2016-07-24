@@ -24,6 +24,8 @@
 		491B34DE1D4405DD0058123E /* JFGoodListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34DD1D4405DD0058123E /* JFGoodListCell.swift */; };
 		491B34E01D4405F60058123E /* JFGoodModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34DF1D4405F60058123E /* JFGoodModel.swift */; };
 		491B34ED1D4408DB0058123E /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34EC1D4408DB0058123E /* Camera.swift */; };
+		491B34F11D44ECC30058123E /* SubcategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34F01D44ECC30058123E /* SubcategoryVC.swift */; };
+		491B34F31D44ECCE0058123E /* SubSubcategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34F21D44ECCE0058123E /* SubSubcategoryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		491B34DD1D4405DD0058123E /* JFGoodListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFGoodListCell.swift; sourceTree = "<group>"; };
 		491B34DF1D4405F60058123E /* JFGoodModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JFGoodModel.swift; sourceTree = "<group>"; };
 		491B34EC1D4408DB0058123E /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		491B34F01D44ECC30058123E /* SubcategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubcategoryVC.swift; sourceTree = "<group>"; };
+		491B34F21D44ECCE0058123E /* SubSubcategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubSubcategoryVC.swift; sourceTree = "<group>"; };
 		CE5FFE842A7BADC4146A0C28 /* Pods-Shop.com.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.com.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shop.com/Pods-Shop.com.release.xcconfig"; sourceTree = "<group>"; };
 		E4DBD7AFE6D30022E41F30FE /* Pods-Shop.com.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.com.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shop.com/Pods-Shop.com.debug.xcconfig"; sourceTree = "<group>"; };
 		E6630499336A5AA56569183E /* Pods_Shop_com.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shop_com.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +131,8 @@
 				491B34391D40ED6E0058123E /* ItemsVC.swift */,
 				491B34DD1D4405DD0058123E /* JFGoodListCell.swift */,
 				491B34DF1D4405F60058123E /* JFGoodModel.swift */,
+				491B34F01D44ECC30058123E /* SubcategoryVC.swift */,
+				491B34F21D44ECCE0058123E /* SubSubcategoryVC.swift */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -280,9 +286,11 @@
 			files = (
 				491B34311D403F5F0058123E /* SearchVC.swift in Sources */,
 				006C71C71D42CE02005AD04A /* Search2VC.swift in Sources */,
+				491B34F31D44ECCE0058123E /* SubSubcategoryVC.swift in Sources */,
 				491B343A1D40ED6E0058123E /* ItemsVC.swift in Sources */,
 				00801A601D419D8500931A06 /* ImaggaViewController.swift in Sources */,
 				491B34E01D4405F60058123E /* JFGoodModel.swift in Sources */,
+				491B34F11D44ECC30058123E /* SubcategoryVC.swift in Sources */,
 				491B34341D4041AE0058123E /* SearchBox.swift in Sources */,
 				00801A621D419DBD00931A06 /* ImaggaRouter.swift in Sources */,
 				0013BB9E1D3C4C75006E44B4 /* ShopViewController.swift in Sources */,
