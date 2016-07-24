@@ -30,9 +30,6 @@ class ShopViewController: UIViewController {
     let headers = [
         "apikey": "l7xxc296eff5fe82405aa19d43106e218ab6"
     ]
-    typealias Category = String
-    typealias Subcategory = String
-    typealias Name = String
     static var jsonData = [String: AnyObject]()
     static var categoryData = [AnyObject]()
     static var categoryNames = [String]()
@@ -43,6 +40,7 @@ class ShopViewController: UIViewController {
     static var subsubcategoryData = [AnyObject]()
     static var subsubcategoryNames = [[String]]()
     static var subsubcategoryImageUrls = [String]()
+    static var itemNamesAndImageUrls = [[String]]()
     
     // MARK: - IBActions
     // APN APIs
@@ -119,7 +117,7 @@ class ShopViewController: UIViewController {
     }
     @IBAction func imageUrlsPressed() {
         for (index, element) in ShopViewController.categoryNames.enumerate() {
-            imageUrls(element) // [names]
+            itemNamesAndimageUrls(element) // [names]
         }
         for (index, element) in ShopViewController.subcategoryNames.enumerate() {
             
@@ -206,15 +204,18 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-    private func imageUrls(name: String) {
+    private func itemNamesAndimageUrls(name: String) {
         products(name) { responseObject, error in
-            print(responseObject)
-            if let products = responseObject?["products"] as? [AnyObject], imageUrl = products[0]["imageUrl"] as? String  {
-                ShopViewController.categoryImageUrls.append(imageUrl)
+            if let products = responseObject?["products"] as? [AnyObject] {
+                for product in products {
+                    if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String {
+                        ShopViewController.itemNamesAndImageUrls.append([name, imageUrl])
+                    } else {
+                        ShopViewController.itemNamesAndImageUrls.append([" "])
+                    }
+                }
             }
-            
-            //print(ShopViewController.categoryNames.count)
-            //print(ShopViewController.categoryImageUrls.count)
+            print("items is: \(ShopViewController.itemNamesAndImageUrls)")
             return
         }
     }

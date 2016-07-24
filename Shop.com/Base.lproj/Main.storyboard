@@ -217,8 +217,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0L-hD-qCD">
-                                <rect key="frame" x="188" y="157" width="225" height="30"/>
-                                <state key="normal" title="ImageUrl for each Category Data"/>
+                                <rect key="frame" x="217" y="157" width="167" height="30"/>
+                                <state key="normal" title="Item name and imageUrl"/>
                                 <connections>
                                     <action selector="imageUrlsPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="7hB-52-ZfR"/>
                                 </connections>
