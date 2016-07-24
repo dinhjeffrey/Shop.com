@@ -26,10 +26,7 @@ class JFGoodModel: NSObject {
     var count: Int = 1
     
     // 新价格
-    var newPrice: String?
-    
-    // 老价格
-    var oldPrice: String?
+    var price: String?
     
     // 是否选中，默认没有选中
     var selected: Bool = true

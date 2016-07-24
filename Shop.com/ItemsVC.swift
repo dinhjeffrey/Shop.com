@@ -15,7 +15,8 @@ class ItemsVC: UIViewController {
 
     // MARK: - 属性
     /// 商品模型数组，初始化
-    private var goodArray = [JFGoodModel]()
+    var array = [JFGoodModel]()
+    var numitems = 0
     
     /// 商品列表cell的重用标识符
     private let goodListCellIdentifier = "goodListCell"
@@ -36,16 +37,16 @@ class ItemsVC: UIViewController {
         // 提醒：这个方法中一般用于初始化控制器中的一些数据、添加子控件等。但是这个方法获取的frame并不一定准确，所以不建议在这个方法约束子控件
         
         // 初始化模型数组，也就是搞点假数据。这里整10个模型
-        for i in 0..<10 {
+        for i in 0..<numitems {
             var dict = [String : AnyObject]()
-            dict["iconName"] = "goodicon_\(i)"
-            dict["title"] = "\(i + 1)阿哥"
-            dict["desc"] = "这是第\(i + 1)个商品"
-            dict["newPrice"] = "1000\(i)"
-            dict["oldPrice"] = "2000\(i)"
-            
+            /*
+            dict["iconName"] =
+            dict["title"] =
+            dict["desc"] = ""
+            dict["price"] =
+            */
             // 字典转模型并将模型添加到模型数组中
-            goodArray.append(JFGoodModel(dict: dict))
+            array.append(JFGoodModel(dict: dict))
         }
         
         // 准备子控件
@@ -148,7 +149,7 @@ extension ItemsVC: UITableViewDataSource, UITableViewDelegate {
     
     // 第section组有多少个cell,我们这里一共就一组。所以直接返回模型数组的长度
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return goodArray.count
+        return numitems
     }
     
     // 创建每个cell
@@ -161,7 +162,7 @@ extension ItemsVC: UITableViewDataSource, UITableViewDelegate {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         // 为cell传递数据
-        cell.goodModel = goodArray[indexPath.row]
+        cell.goodModel = array[indexPath.row]
         
         // 指定代理
         cell.delegate = self
@@ -209,7 +210,7 @@ extension ItemsVC: JFGoodListCellDelegate {
         }
         
         // 获取当前模型，添加到购物车模型数组
-        let model = goodArray[indexPath.row]
+        let model = array[indexPath.row]
         addGoodArray.append(model)
         
         // 重新计算iconView的frame，并开启动画
