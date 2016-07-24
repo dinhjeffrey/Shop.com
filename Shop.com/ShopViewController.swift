@@ -112,6 +112,8 @@ class ShopViewController: UIViewController {
                                 ShopViewController.subcategoryNames.append([" "])
                             }
                         }
+                    } else {
+                        ShopViewController.categoryNames.append(" ")
                     }
                 }
             }
@@ -211,6 +213,7 @@ class ShopViewController: UIViewController {
     }
     private func itemNamesAndimageUrls(name: String, index: Int) {
         products(name) { responseObject, error in
+            //print("response OBJECT is: \(responseObject)")
             if let products = responseObject?["products"] as? [AnyObject] {
                 for product in products {
                     if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String {
@@ -223,6 +226,8 @@ class ShopViewController: UIViewController {
                         ShopViewController.itemNamesAndImageUrls[index].append([" "])
                     }
                 }
+            }  else {
+                ShopViewController.itemNamesAndImageUrls.append([[" "]])
             }
             print("items is: \(ShopViewController.itemNamesAndImageUrls)")
             return
