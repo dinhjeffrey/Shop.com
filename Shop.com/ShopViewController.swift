@@ -216,12 +216,12 @@ class ShopViewController: UIViewController {
             //print("response OBJECT is: \(responseObject)")
             if let products = responseObject?["products"] as? [AnyObject] {
                 for product in products {
-                    if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String, description = product["description"] as? String {
+                    if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String, description = product["description"] as? String, price = product["minimumPrice"] as? String {
                         guard ShopViewController.itemNamesAndImageUrls.indices.contains(index) != false else {
-                            ShopViewController.itemNamesAndImageUrls.append([[name, imageUrl, description]])
+                            ShopViewController.itemNamesAndImageUrls.append([[name, imageUrl, description, price]])
                             continue
                         }
-                        ShopViewController.itemNamesAndImageUrls[index].append([name, imageUrl, description])
+                        ShopViewController.itemNamesAndImageUrls[index].append([name, imageUrl, description, price])
                     } else {
                         ShopViewController.itemNamesAndImageUrls[index].append([" "])
                     }
