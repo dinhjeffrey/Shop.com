@@ -103,8 +103,12 @@ class ShopViewController: UIViewController {
                                             continue
                                         }
                                         ShopViewController.subsubcategoryNames[index2].append(subsubcategoryName)
+                                    }  else {
+                                        ShopViewController.subsubcategoryNames.append([" "])
                                     }
                                 }
+                            } else {
+                                ShopViewController.subcategoryNames.append([" "])
                             }
                         }
                     }
@@ -115,11 +119,18 @@ class ShopViewController: UIViewController {
     }
     @IBAction func imageUrlsPressed() {
         for (index, element) in ShopViewController.categoryNames.enumerate() {
-            imageUrls(element)
+            imageUrls(element) // [names]
+        }
+        for (index, element) in ShopViewController.subcategoryNames.enumerate() {
+            
+        }
+        for (index, element) in ShopViewController.subsubcategoryNames.enumerate() {
+            
         }
     }
     @IBAction func printz() {
-        print("subcategory Names is: \(ShopViewController.subsubcategoryNames)")
+        print("subcategory Names is: \(ShopViewController.subcategoryNames)")
+        print("subsubCategory Names is: \(ShopViewController.subsubcategoryNames)")
     }
     
     // method calls alamofire get request and prints JSON response
@@ -197,16 +208,14 @@ class ShopViewController: UIViewController {
     }
     private func imageUrls(name: String) {
         products(name) { responseObject, error in
-            if let products = responseObject?["products"] as? [AnyObject] {
-                for product in products {
-                    if let imageUrl = product["imageUrl"] as? String {
-                        ShopViewController.categoryImageUrls.append(imageUrl)
-                    }
-                }
-                print(ShopViewController.categoryNames.count)
-                print(ShopViewController.categoryImageUrls.count)
-                return
+            print(responseObject)
+            if let products = responseObject?["products"] as? [AnyObject], imageUrl = products[0]["imageUrl"] as? String  {
+                ShopViewController.categoryImageUrls.append(imageUrl)
             }
+            
+            //print(ShopViewController.categoryNames.count)
+            //print(ShopViewController.categoryImageUrls.count)
+            return
         }
     }
     
@@ -235,5 +244,5 @@ class ShopViewController: UIViewController {
     
     
     
+    
 }
-
