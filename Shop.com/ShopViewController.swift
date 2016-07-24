@@ -31,6 +31,7 @@ class ShopViewController: UIViewController {
         "apikey": "l7xxe5c08ba7f05d41d3b8ee3bbb481d30d5"
     ]
     static var jsonData = [String: AnyObject]()
+    static var categoryNames = [String]()
     
     // MARK: - IBActions
     // APN APIs
@@ -40,6 +41,7 @@ class ShopViewController: UIViewController {
             return
         }
     }
+    
     @IBAction func productsPressed() {
         products("")  { responseObject, error in
             print("responseObject = \(responseObject); error = \(error)")
@@ -55,6 +57,19 @@ class ShopViewController: UIViewController {
     @IBAction func taxAndShippingPressed() {
         taxAndShipping()  { responseObject, error in
             print("responseObject = \(responseObject); error = \(error)")
+            return
+        }
+    }
+    @IBAction func allCategoryNamesPressed() {
+        categories() { responseObject, error in
+            if let categories = responseObject!["categories"] as? [AnyObject] {
+                for category in categories {
+                    if let name = category["name"] as? String {
+                        ShopViewController.categoryNames.append(name)
+                    }
+                }
+            }
+            print(ShopViewController.categoryNames)
             return
         }
     }
@@ -127,6 +142,7 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
+    
     
     
     

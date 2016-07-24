@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8My-lL-urC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8My-lL-urC">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -209,11 +209,20 @@
                                     <action selector="productIdPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Gc-5j-TPR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-dC-zLw">
+                                <rect key="frame" x="232" y="119" width="136" height="30"/>
+                                <state key="normal" title="All Category Names"/>
+                                <connections>
+                                    <action selector="allCategoryNamesPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="UEh-Bd-pAn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="AoY-z4-ImT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C0Z-H0-3SR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AoY-z4-ImT" secondAttribute="bottom" constant="52" id="TCn-ej-9g7"/>
+                            <constraint firstItem="xjf-dC-zLw" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="55" id="YqR-rM-Pnv"/>
+                            <constraint firstItem="xjf-dC-zLw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jRS-xh-Q3v"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qP3-Yl-y74"/>
@@ -297,6 +306,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x3r-Hc-QOt" id="EYW-ZZ-T6w">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
