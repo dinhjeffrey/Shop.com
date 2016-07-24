@@ -40,7 +40,7 @@ class ShopViewController: UIViewController {
     static var subsubcategoryData = [AnyObject]()
     static var subsubcategoryNames = [[String]]()
     static var subsubcategoryImageUrls = [String]()
-    static var itemNamesAndImageUrls = [[String]]()
+    static var itemNamesAndImageUrls = [[[String]]]() // triply nested because each subsubcategory name can have a list of items returned when calling product API [ [ [name, imageurl], [name, imageurl] ] ]
     
     // MARK: - IBActions
     // APN APIs
@@ -116,14 +116,13 @@ class ShopViewController: UIViewController {
         }
     }
     @IBAction func imageUrlsPressed() {
-        for (index, element) in ShopViewController.categoryNames.enumerate() {
-            itemNamesAndimageUrls(element) // [names]
-        }
-        for (index, element) in ShopViewController.subcategoryNames.enumerate() {
-            
-        }
-        for (index, element) in ShopViewController.subsubcategoryNames.enumerate() {
-            
+        // loop through each [[subcategory], [subcategory]]
+        for subcategory in ShopViewController.subsubcategoryNames {
+            // loop through each [[subsubcategory, subsubcategory, subsubcategory]]
+            for (index, subsubcategoryName) in subcategory.enumerate() {
+                // adds a lot of [name, imageurl] for each subsubcategory. calls product api on the name
+                itemNamesAndimageUrls(subsubcategoryName, index: index)
+            }
         }
     }
     @IBAction func printz() {
@@ -204,14 +203,18 @@ class ShopViewController: UIViewController {
         ]
         alamofireRequest(url, parameters: params, completionHandler: completionHandler)
     }
-    private func itemNamesAndimageUrls(name: String) {
+    private func itemNamesAndimageUrls(name: String, index: Int) {
         products(name) { responseObject, error in
             if let products = responseObject?["products"] as? [AnyObject] {
                 for product in products {
                     if let name = product["name"] as? String, imageUrl = product["imageUrl"] as? String {
-                        ShopViewController.itemNamesAndImageUrls.append([name, imageUrl])
+                        guard ShopViewController.itemNamesAndImageUrls.indices.contains(index) != false else {
+                            ShopViewController.itemNamesAndImageUrls.append([[name, imageUrl]])
+                            continue
+                        }
+                        ShopViewController.itemNamesAndImageUrls[index].append([name, imageUrl])
                     } else {
-                        ShopViewController.itemNamesAndImageUrls.append([" "])
+                        ShopViewController.itemNamesAndImageUrls[index].append([" "])
                     }
                 }
             }
