@@ -23,7 +23,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     ]
 
     var categorycount = 0
-    var categorynames = [AnyObject]?()
+    var categorynames = [AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCellWithIdentifier("cell")
-        cell?.textLabel?.text = categorynames![indexPath.row] as! String
+        cell?.textLabel?.text = categorynames[indexPath.row] as! String
         return cell!
     }
     
@@ -51,11 +51,18 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             )
             .responseJSON { response in
                 if let JSON = response.result.value {
-                    
-                    for anItem in JSON as! NSDictionary{
-
+                    var i = 0
+                    let x = JSON[0] as! NSDictionary
+                    for (key, value) in x{
+                        print(key)
+                        /*
                         self.categorycount++
-                        self.categorynames?.append(anItem.value[0]["name"]!!)
+                        self.categorynames.append(value[i]["name"]!!)
+                        print(self.categorynames)
+                        self.tableview.reloadData()
+                        i++
+                        print(i)
+ */
                     }
  
                 }
