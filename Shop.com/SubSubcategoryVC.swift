@@ -13,7 +13,8 @@ class SubSubcategoryVC: UIViewController, UITableViewDataSource, UITableViewDele
     typealias Name = String
     @IBOutlet weak var tableview: UITableView!
     var subsubcategorynames = [String]() //
-    var items = [String]()
+    var items = [[String]]()
+    var number = 0
     override func viewDidLoad() {
         tableview.delegate = self
         tableview.dataSource = self
@@ -30,12 +31,12 @@ class SubSubcategoryVC: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(items)
+        number = indexPath.row
         self.performSegueWithIdentifier("subsubtoitem", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let vc = segue.destinationViewController as! ItemsVC
-        vc.items = items
+        vc.items = items[number]
     }
 }

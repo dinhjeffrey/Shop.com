@@ -177,7 +177,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             headers: headers
             )
             .responseJSON { response in
-                print(response.result)   // result of response serialization
+                //print(response.result)   // result of response serialization
                 switch response.result {
                 case .Success(let value):
                     completionHandler(value as? [String: AnyObject], nil)

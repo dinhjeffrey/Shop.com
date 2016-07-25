@@ -21,9 +21,9 @@ class JFGoodListCell: UITableViewCell {
     var goodModel: JFGoodModel? {
         didSet {
             
-            
-            iconView.image = goodModel!.imagestuff
-            
+            if let iconName = goodModel?.iconName {
+                iconView.image = UIImage(named: iconName)
+            }
             
             if let title = goodModel?.title {
                 titleLabel.text = title
@@ -32,7 +32,7 @@ class JFGoodListCell: UITableViewCell {
             if let desc = goodModel?.desc {
                 descLabel.text = desc
             }
-
+            
             // 已经点击的就禁用,这样做是防止cell重用
             addCartButton.enabled = !goodModel!.alreadyAddShoppingCart
             
@@ -143,7 +143,7 @@ class JFGoodListCell: UITableViewCell {
     private lazy var addCartButton: UIButton = {
         let addCartButton = UIButton(type: UIButtonType.Custom)
         addCartButton.setBackgroundImage(UIImage(named: "button_cart_add"), forState: UIControlState.Normal)
-        addCartButton.setTitle("购买", forState: UIControlState.Normal)
+        addCartButton.setTitle("Wish", forState: UIControlState.Normal)
         
         // 添加按钮点击事件
         addCartButton.addTarget(self, action: "didTappedAddCartButton:", forControlEvents: UIControlEvents.TouchUpInside)

@@ -26,6 +26,7 @@
 		491B34ED1D4408DB0058123E /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34EC1D4408DB0058123E /* Camera.swift */; };
 		491B34F11D44ECC30058123E /* SubcategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34F01D44ECC30058123E /* SubcategoryVC.swift */; };
 		491B34F31D44ECCE0058123E /* SubSubcategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491B34F21D44ECCE0058123E /* SubSubcategoryVC.swift */; };
+		4993874F1D45BBDA00C6146D /* ChangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4993874E1D45BBDA00C6146D /* ChangeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		491B34EC1D4408DB0058123E /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		491B34F01D44ECC30058123E /* SubcategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubcategoryVC.swift; sourceTree = "<group>"; };
 		491B34F21D44ECCE0058123E /* SubSubcategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubSubcategoryVC.swift; sourceTree = "<group>"; };
+		4993874E1D45BBDA00C6146D /* ChangeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeVC.swift; sourceTree = "<group>"; };
 		CE5FFE842A7BADC4146A0C28 /* Pods-Shop.com.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.com.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shop.com/Pods-Shop.com.release.xcconfig"; sourceTree = "<group>"; };
 		E4DBD7AFE6D30022E41F30FE /* Pods-Shop.com.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.com.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shop.com/Pods-Shop.com.debug.xcconfig"; sourceTree = "<group>"; };
 		E6630499336A5AA56569183E /* Pods_Shop_com.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shop_com.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +100,7 @@
 				491B343B1D40FA460058123E /* WishListVC.swift */,
 				0013BBAD1D3C4C7E006E44B4 /* Supporting Files */,
 				491B34EC1D4408DB0058123E /* Camera.swift */,
+				4993874E1D45BBDA00C6146D /* ChangeVC.swift */,
 			);
 			path = Shop.com;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				00801A621D419DBD00931A06 /* ImaggaRouter.swift in Sources */,
 				0013BB9E1D3C4C75006E44B4 /* ShopViewController.swift in Sources */,
 				491B34ED1D4408DB0058123E /* Camera.swift in Sources */,
+				4993874F1D45BBDA00C6146D /* ChangeVC.swift in Sources */,
 				0013BB9C1D3C4C75006E44B4 /* AppDelegate.swift in Sources */,
 				491B34DE1D4405DD0058123E /* JFGoodListCell.swift in Sources */,
 				491B343C1D40FA460058123E /* WishListVC.swift in Sources */,

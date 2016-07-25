@@ -7,16 +7,17 @@
 //
 
 import UIKit
-import SnapKit
 
+// 屏幕尺寸
 let SCREEN_WIDTH = UIScreen.mainScreen().bounds.size.width
 let SCREEN_HEIGHT = UIScreen.mainScreen().bounds.size.height
-class ItemsVC: UIViewController {
 
+class ItemsVC: UIViewController {
+    
+    var items = [String]()
     // MARK: - 属性
     /// 商品模型数组，初始化
-    var array = [JFGoodModel]()
-    var items = [String]()
+    private var goodArray = [JFGoodModel]()
     
     /// 商品列表cell的重用标识符
     private let goodListCellIdentifier = "goodListCell"
@@ -30,6 +31,8 @@ class ItemsVC: UIViewController {
     /// 自定义图层
     var layer: CALayer?
     
+    var shoenames = ["Adidas Superstar", "Yeezy", "Nike Roshe", "Nike Air", "Nike Huarache", "Nike Air 2016", "Vans High Tops", "Vans Classic Floral"]
+    var descrip = ["$100", "Out of Stock", "$40", "$100", "$120", "$200", "$80", "$50"]
     // MARK: - view生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,32 +40,26 @@ class ItemsVC: UIViewController {
         // 提醒：这个方法中一般用于初始化控制器中的一些数据、添加子控件等。但是这个方法获取的frame并不一定准确，所以不建议在这个方法约束子控件
         
         // 初始化模型数组，也就是搞点假数据。这里整10个模型
-        for i in 0..<items.count {
-            
-            /*
+        for i in 0..<8 {
             var dict = [String : AnyObject]()
-            let name = items[0]
-            let imageurl = items[i][1]
-            let descrip = items[i][2]
-            let price = items[i][3]
-            let x = name
+            //let item = items[i]
+            //print(item)
+            //print("---------")
+            /*
+            let name = item[0]
+            let imagelink = item[1]
+            let descrip = item[2]
+            let price = item[3]
  */
-            if let data = NSData(contentsOfURL: url) {
-                imageURL.image = UIImage(data: data)
-            }
-            dict["imagestuff"] =  if let data = NSData(contentsOfURL: url) {
-                imageURL.image = UIImage(data: data)
-            }
-            dict["title"] =
-            dict["desc"] = ""
-            dict["price"] =
-            */
+            
+            dict["iconName"] = "\(i)"
+            dict["title"] = shoenames[i]
+            dict["desc"] = descrip[i]
+            dict["newPrice"] = "1000\(i)"
+            dict["oldPrice"] = "2000\(i)"
+            
             // 字典转模型并将模型添加到模型数组中
-            if(url == " "){
-                break
-            }else{
-                array.append(JFGoodModel(dict: dict))
-            }
+            goodArray.append(JFGoodModel(dict: dict))
         }
         
         // 准备子控件
@@ -83,7 +80,7 @@ class ItemsVC: UIViewController {
      准备子控件方法，在这个方法中我们可以创建并添加子控件到view
      */
     private func prepareUI() {
-        /*
+        
         // 标题
         navigationItem.title = "Items"
         
@@ -93,7 +90,7 @@ class ItemsVC: UIViewController {
         // 添加购物车按钮上的label
         navigationController?.navigationBar.addSubview(addCountLabel)
         navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
-        */
+        
         // 添加tableView到控制器的view上
         view.addSubview(tableView)
         
@@ -107,11 +104,9 @@ class ItemsVC: UIViewController {
     private func layoutUI() {
         
         // 约束tableview，让它全屏显示。注意：这里我使用了第三方约束框架（SnapKit）。如果还不会使用，请学习
-        
         tableView.snp_makeConstraints { (make) -> Void in
             make.edges.equalTo(view.snp_edges)
         }
-        
         
         addCountLabel.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(-12)
@@ -119,7 +114,6 @@ class ItemsVC: UIViewController {
             make.width.equalTo(15)
             make.height.equalTo(15)
         }
- 
     }
     
     // MARK: - 懒加载
@@ -138,7 +132,7 @@ class ItemsVC: UIViewController {
     lazy var cartButton: UIButton = {
         let carButton = UIButton(type: UIButtonType.Custom)
         carButton.setImage(UIImage(named: "button_cart"), forState: UIControlState.Normal)
-        //carButton.addTarget(self, action: #selector(ItemsVC.didTappedCarButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        //carButton.addTarget(self, action: "didTappedCarButton:", forControlEvents: UIControlEvents.TouchUpInside)
         carButton.sizeToFit()
         return carButton
     }()
@@ -166,7 +160,7 @@ extension ItemsVC: UITableViewDataSource, UITableViewDelegate {
     
     // 第section组有多少个cell,我们这里一共就一组。所以直接返回模型数组的长度
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return goodArray.count
     }
     
     // 创建每个cell
@@ -179,7 +173,7 @@ extension ItemsVC: UITableViewDataSource, UITableViewDelegate {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         // 为cell传递数据
-        cell.goodModel = array[indexPath.row]
+        cell.goodModel = goodArray[indexPath.row]
         
         // 指定代理
         cell.delegate = self
@@ -189,17 +183,18 @@ extension ItemsVC: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+/*
 // view上的一些事件处理在这个类扩展里
-extension ItemsVC {
+extension JFGoodListViewController {
     
     /**
      当点击了购物车触发，modal到购物车控制器
      
      - parameter button: 购物车按钮
      */
+    
     @objc private func didTappedCarButton(button: UIButton) {
         
-        /*
         let shoppingCartVc = JFShoppingCartViewController()
         
         // 传递商品模型数组
@@ -207,10 +202,10 @@ extension ItemsVC {
         
         // 模态出一个购物车控制器
         presentViewController(UINavigationController(rootViewController: shoppingCartVc), animated: true, completion: nil)
- */
     }
+ 
 }
-
+*/
 // MARK: - JFGoodListCellDelegate代理方法
 extension ItemsVC: JFGoodListCellDelegate {
     
@@ -227,7 +222,7 @@ extension ItemsVC: JFGoodListCellDelegate {
         }
         
         // 获取当前模型，添加到购物车模型数组
-        let model = array[indexPath.row]
+        let model = goodArray[indexPath.row]
         addGoodArray.append(model)
         
         // 重新计算iconView的frame，并开启动画
@@ -240,7 +235,7 @@ extension ItemsVC: JFGoodListCellDelegate {
 }
 
 // MARK: - 商品图片抛入购物车的动画效果
-extension ItemsVC {
+extension ItemsVC{
     
     /**
      开始动画
@@ -330,7 +325,6 @@ extension ItemsVC {
             let goodCountAnimation = CATransition()
             goodCountAnimation.duration = 0.25
             addCountLabel.text = "\(self.addGoodArray.count)"
-        
             addCountLabel.layer.addAnimation(goodCountAnimation, forKey: nil)
             
             // 购物车抖动
@@ -342,5 +336,4 @@ extension ItemsVC {
             cartButton.layer.addAnimation(cartAnimation, forKey: nil)
         }
     }
-
 }

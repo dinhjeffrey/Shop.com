@@ -14,7 +14,7 @@ class JFGoodModel: NSObject {
     var alreadyAddShoppingCart: Bool = false
     
     // 商品图片名称
-    var imagestuff: UIImage?
+    var iconName: String?
     
     // 商品标题
     var title: String?
