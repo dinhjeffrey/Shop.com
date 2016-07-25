@@ -21,9 +21,9 @@ class JFGoodListCell: UITableViewCell {
     var goodModel: JFGoodModel? {
         didSet {
             
-            if let iconName = goodModel?.iconName {
-                iconView.image = UIImage(named: iconName)
-            }
+            
+            iconView.image = goodModel!.imagestuff
+            
             
             if let title = goodModel?.title {
                 titleLabel.text = title

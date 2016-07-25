@@ -38,15 +38,31 @@ class ItemsVC: UIViewController {
         
         // 初始化模型数组，也就是搞点假数据。这里整10个模型
         for i in 0..<items.count {
-            var dict = [String : AnyObject]()
+            
             /*
-            dict["iconName"] =
+            var dict = [String : AnyObject]()
+            let name = items[0]
+            let imageurl = items[i][1]
+            let descrip = items[i][2]
+            let price = items[i][3]
+            let x = name
+ */
+            if let data = NSData(contentsOfURL: url) {
+                imageURL.image = UIImage(data: data)
+            }
+            dict["imagestuff"] =  if let data = NSData(contentsOfURL: url) {
+                imageURL.image = UIImage(data: data)
+            }
             dict["title"] =
             dict["desc"] = ""
             dict["price"] =
             */
             // 字典转模型并将模型添加到模型数组中
-            array.append(JFGoodModel(dict: dict))
+            if(url == " "){
+                break
+            }else{
+                array.append(JFGoodModel(dict: dict))
+            }
         }
         
         // 准备子控件
@@ -95,6 +111,7 @@ class ItemsVC: UIViewController {
         tableView.snp_makeConstraints { (make) -> Void in
             make.edges.equalTo(view.snp_edges)
         }
+        
         
         addCountLabel.snp_makeConstraints { (make) -> Void in
             make.right.equalTo(-12)
