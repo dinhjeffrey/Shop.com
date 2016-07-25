@@ -180,7 +180,7 @@ class ShopViewController: UIViewController {
             "locale": "en_US", // required
             "start": "", // defaults to 0
             "perPage": "", // defaults to 15
-            "term": "General Use Sealants",//term,
+            "term": term,//term,
             "categoryId": "",
             "brandId": "",
             "sellerId": "",

@@ -20,6 +20,7 @@ class Camera: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var searchWithPic: UILabel!
     
     // MARK: - IBActions
     @IBAction func takePhoto(sender: UIButton) {
@@ -78,6 +79,7 @@ extension Camera : UIImagePickerControllerDelegate, UINavigationControllerDelega
         progressView.progress = 0.0
         progressView.hidden = false
         activityIndicatorView.startAnimating()
+        searchWithPic.hidden = true
         
         // called method uploadImage. everything with alamofire is asynchronous. updates UI in async manner
         uploadImage(
@@ -93,7 +95,7 @@ extension Camera : UIImagePickerControllerDelegate, UINavigationControllerDelega
                 weakSelf?.progressView.hidden = true
                 weakSelf?.activityIndicatorView.stopAnimating()
                 
-                ImaggaViewController.tags = tags
+                Camera.tags = tags
                 // 4. advances to results results screen after successful or unsuccessful upload
                 self.performSegueWithIdentifier(Storyboard.ShowSearch2VC, sender: self)
             })

@@ -17,6 +17,8 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var recommendation4: UIButton!
     @IBOutlet weak var didYouMean: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityView: UIView!
     
     // MARK: - IBActions
     @IBAction func recommendationPressed(sender: UIButton) {
@@ -32,15 +34,16 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // MARK: - View Controller Lifecycle
-    override func viewDidLoad() {
+    override func viewDidLoad() { 
         super.viewDidLoad()
         // unwraps recommendations from tags downloaded from Imagga API
-        if let firstRecommendation = ImaggaViewController.tags?[0], secondRecommendation = ImaggaViewController.tags?[1], thirdRecommendation = ImaggaViewController.tags?[2], fourthRecommendation = ImaggaViewController.tags?[3] {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
+        activityIndicator.sendSubviewToBack(tableView)
+        activityIndicator.startAnimating()
+        if let firstRecommendation = Camera.tags?[0], secondRecommendation = Camera.tags?[1], thirdRecommendation = Camera.tags?[2], fourthRecommendation = Camera.tags?[3] {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) { [weak weakSelf = self] in
                 // call to Shop product API with first recommendation
                 weakSelf?.shopVC.products(firstRecommendation) { responseObject, error in
-                    // print("responseObject = \(responseObject); error = \(error)")
-                    if let products = responseObject!["products"] as? [AnyObject] {
+                    if let products = responseObject?["products"] as? [AnyObject] {
                         for product in products {
                             if let imageUrl = product["imageUrl"] as? String, name = product["name"] as? String {
                                 Search2VC.imageUrls.append(imageUrl)
@@ -48,8 +51,9 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                             }
                         }
                     }
-                    print(Search2VC.names)
-                    print(Search2VC.imageUrls)
+                    weakSelf?.activityView.hidden = true
+                    weakSelf?.activityIndicator.stopAnimating()
+                    weakSelf?.tableView.reloadData()
                     return
                 }
                 dispatch_async(dispatch_get_main_queue()) {
@@ -58,7 +62,7 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     weakSelf?.recommendation2.setTitle(secondRecommendation, forState: .Normal)
                     weakSelf?.recommendation3.setTitle(thirdRecommendation, forState: .Normal)
                     weakSelf?.recommendation4.setTitle(fourthRecommendation, forState: .Normal)
-                }
+               }
             }
         }
     }
@@ -67,7 +71,7 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     private func recommendationPressed(tag: Int) {
         var term = String()
         var placeholder = String()
-        if let secondRecommendation = ImaggaViewController.tags?[1], thirdRecommendation = ImaggaViewController.tags?[2], fourthRecommendation = ImaggaViewController.tags?[3] {
+        if let secondRecommendation = Camera.tags?[1], thirdRecommendation = Camera.tags?[2], fourthRecommendation = Camera.tags?[3] {
             switch tag {
             case 2:
                 term = secondRecommendation
@@ -82,8 +86,23 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 fatalError("unknown button pressed")
             }
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
+                weakSelf?.activityView.hidden = false
+                weakSelf?.activityIndicator.startAnimating()
                 // call to Shop product API with recommendation
                 weakSelf?.shopVC.products(term) { responseObject, error in
+                    Search2VC.imageUrls = []
+                    Search2VC.names = []
+                    if let products = responseObject?["products"] as? [AnyObject] {
+                        for product in products {
+                            if let imageUrl = product["imageUrl"] as? String, name = product["name"] as? String {
+                                Search2VC.imageUrls.append(imageUrl)
+                                Search2VC.names.append(name)
+                            }
+                        }
+                    }
+                    weakSelf?.activityView.hidden = true
+                    weakSelf?.activityIndicator.stopAnimating()
+                    weakSelf?.tableView.reloadData()
                     return
                 }
                 dispatch_async(dispatch_get_main_queue()) {
@@ -96,22 +115,19 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // MARK: UITableViewDataSource
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Pokemon Go Rox"
-    }
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        print("search2vc tbv count: \(Search2VC.names.count)")
+        return Search2VC.names.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.Cell, forIndexPath: indexPath)
 //        let name = names[indexPath.row]
-//        cell.textLabel?.text = name
+        cell.textLabel?.text = Search2VC.names[indexPath.row]
         
         return cell
     }
@@ -120,16 +136,6 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // code
     }
     
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
     
 }

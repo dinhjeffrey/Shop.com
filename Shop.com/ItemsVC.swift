@@ -75,6 +75,10 @@ class ItemsVC: UIViewController {
         // 约束子控件
         layoutUI()
     }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        addCountLabel.hidden = true
+    }
     
     /**
      准备子控件方法，在这个方法中我们可以创建并添加子控件到view
