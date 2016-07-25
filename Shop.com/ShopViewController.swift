@@ -128,7 +128,7 @@ class ShopViewController: UIViewController {
                 // loop through each name in subsubcategory
                 for (index, subsubcategoryName) in subcategory.enumerate() {
                     // adds a lot of [name, imageurl] for each subsubcategory. calls product api on the name
-                    itemNamesAndimageUrls(subsubcategoryName, index: index)
+                    // itemNamesAndimageUrls(subsubcategoryName, index: index) // disables flood
                 }
             }
         }
