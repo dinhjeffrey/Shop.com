@@ -11,9 +11,11 @@ import UIKit
 class ChangeVC: UIViewController {
     @IBOutlet weak var change: UITextField!
 
+    let defaults = NSUserDefaults.standardUserDefaults()
     override func unwindForSegue(unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
         let vc = unwindSegue.destinationViewController as! WishListVC
-        let x = Int(change.text!)
-        vc.totalchange += x!
+        let totalchange = defaults.integerForKey("change")
+        let x = Int(change.text!)! / 100
+        defaults.setInteger(totalchange + x, forKey: "change")
     }
 }

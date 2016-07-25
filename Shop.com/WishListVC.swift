@@ -18,7 +18,6 @@ class WishListVC: UICollectionViewController {
     let realprice = [100, 100, 200, 50]
     let images = [3, 0, 5, 7]
     let darks = ["dark2", "dark4", "dark1", "dark3"]
-    var totalchange = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,23 +31,15 @@ class WishListVC: UICollectionViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        let totalchange = defaults.integerForKey("change")
         self.navigationItem.title = "Balance: $\(totalchange)"
+        collectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -65,7 +56,10 @@ class WishListVC: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell : SearchBox = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! SearchBox
-        if(totalchange >= realprice[indexPath.row]){
+      
+        let totalchange = defaults.integerForKey("change")
+        if((totalchange / 100) >= realprice[indexPath.row]){
+            print("more")
             cell.appimage.image = UIImage(named: "\(images[indexPath.row])")
         }else{
             cell.appimage.image = UIImage(named: "\(darks[indexPath.row])")
@@ -73,8 +67,6 @@ class WishListVC: UICollectionViewController {
         cell.name.text = itemnames[indexPath.row]
         cell.price.text = price[indexPath.row]
         // Configure the cell
-    
-        print(cell.price.text)
         return cell
     }
     
