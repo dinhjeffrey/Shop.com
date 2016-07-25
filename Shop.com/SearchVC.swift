@@ -81,7 +81,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             let vc = segue.destinationViewController as! SubcategoryVC
             vc.subcategorynames = subcategoryNames[number]
             vc.subsubcategorynames = subsubcategoryNames[number]            
-            vc.items = itemNamesAndImageUrls[number]
+            vc.items = [["items"]] //fixed flooding api call //itemNamesAndImageUrls[number]
         }
     }
     
@@ -162,7 +162,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 }
             }
             self.reloadTable()
-            self.imageUrlsPressed()
+            //self.imageUrlsPressed()
             weakSelf?.activityIndicator.stopAnimating()
             return
         }

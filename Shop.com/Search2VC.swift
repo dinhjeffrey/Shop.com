@@ -87,9 +87,9 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             default:
                 fatalError("unknown button pressed")
             }
+            activityView.hidden = false
+            activityIndicator.startAnimating()
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { [weak weakSelf = self] in
-                weakSelf?.activityView.hidden = false
-                weakSelf?.activityIndicator.startAnimating()
                 // call to Shop product API with recommendation
                 weakSelf?.shopVC.products(term) { responseObject, error in
                     Search2VC.imageUrls = []
