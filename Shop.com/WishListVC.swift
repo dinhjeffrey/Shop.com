@@ -12,7 +12,6 @@ private let reuseIdentifier = "Cell"
 
 class WishListVC: UICollectionViewController {
 
-    @IBOutlet weak var balancelabel: UILabel!
     let defaults = NSUserDefaults.standardUserDefaults()
     let itemnames = ["Nike Air", "Adidas Superstar", "Nike Air 2016", "Vans Classic Floral"]
     let price = ["$100", "$100", "$200", "$50"]
@@ -23,6 +22,7 @@ class WishListVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         if(defaults.objectForKey("itemnames") != nil){
             
         }
@@ -32,9 +32,7 @@ class WishListVC: UICollectionViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.balancelabel.frame.origin = CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2+50)
-
-        self.balancelabel.text = "Balance: $\(totalchange)"
+        self.navigationItem.title = "Balance: $\(totalchange)"
     }
 
     override func didReceiveMemoryWarning() {
