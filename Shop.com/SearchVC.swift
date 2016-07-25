@@ -13,6 +13,8 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
    
     let defaults = NSUserDefaults.standardUserDefaults()
     @IBOutlet weak var tableview: UITableView!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     // MARK: - global constants and variables
     var url = "https://api.shop.com/AffiliatePublisherNetwork/v1/"
     let params = [
@@ -44,6 +46,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableview.delegate = self
         tableview.dataSource = self
         allCategoryNamesPressed()
+        activityIndicator.startAnimating()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -111,7 +114,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     func allCategoryNamesPressed() {
-        categories() { responseObject, error in
+        categories() { [weak weakSelf = self] responseObject, error in
             if let categories = responseObject!["categories"] as? [AnyObject] {
                 
                 // 1st level category
@@ -160,6 +163,7 @@ class SearchVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             }
             self.reloadTable()
             self.imageUrlsPressed()
+            weakSelf?.activityIndicator.stopAnimating()
             return
         }
     }
