@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -870,7 +871,7 @@
                                 <rect key="frame" x="0.0" y="160" width="600" height="440"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="gaC-4K-bfc">
-                                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                    <rect key="frame" x="0.0" y="72" width="600" height="128"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="UYm-hg-jYA">
@@ -902,12 +903,39 @@
                                     </variation>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="YMz-ea-qbH">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResponsiveTableViewCell" rowHeight="80" id="JU6-bR-4XI">
+                                        <rect key="frame" x="0.0" y="22" width="568" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YMz-ea-qbH" id="4EI-b1-vor">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JU6-bR-4XI" id="gti-45-i43">
+                                            <rect key="frame" x="0.0" y="0.0" width="568" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JEI-b8-J0R">
+                                                    <rect key="frame" x="8" y="8" width="64" height="63.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="JEI-b8-J0R" secondAttribute="height" id="DAm-4f-bB7"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of the object" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJ7-MV-hEA">
+                                                    <rect key="frame" x="80" y="8" width="480" height="63.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="JEI-b8-J0R" firstAttribute="bottom" secondItem="gti-45-i43" secondAttribute="bottomMargin" id="0Ul-Rn-809"/>
+                                                <constraint firstAttribute="centerY" secondItem="JEI-b8-J0R" secondAttribute="centerY" id="2PR-rf-WLD"/>
+                                                <constraint firstItem="JEI-b8-J0R" firstAttribute="leading" secondItem="gti-45-i43" secondAttribute="leadingMargin" id="2vp-9f-bBx"/>
+                                                <constraint firstItem="RJ7-MV-hEA" firstAttribute="leading" secondItem="JEI-b8-J0R" secondAttribute="trailing" constant="8" id="BgZ-54-P4C"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="RJ7-MV-hEA" secondAttribute="bottom" constant="0.5" id="HtX-wB-6zq"/>
+                                                <constraint firstItem="RJ7-MV-hEA" firstAttribute="top" secondItem="gti-45-i43" secondAttribute="topMargin" id="hWv-Gd-AVR"/>
+                                                <constraint firstItem="JEI-b8-J0R" firstAttribute="top" secondItem="gti-45-i43" secondAttribute="topMargin" id="pBN-b9-KdY"/>
+                                                <constraint firstItem="RJ7-MV-hEA" firstAttribute="trailing" secondItem="gti-45-i43" secondAttribute="trailingMargin" id="zX1-4I-SZg"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -967,6 +995,7 @@
                             <constraint firstItem="bXG-x4-P1U" firstAttribute="leading" secondItem="XCl-8c-SAK" secondAttribute="trailing" constant="72" id="arT-WU-vlp">
                                 <variation key="heightClass=regular-widthClass=compact" constant="81"/>
                             </constraint>
+                            <constraint firstItem="bXG-x4-P1U" firstAttribute="top" secondItem="4GC-T3-VLT" secondAttribute="bottom" constant="27" id="dIw-cF-7Pe"/>
                             <constraint firstAttribute="trailing" secondItem="4GC-T3-VLT" secondAttribute="trailing" constant="20" id="g4q-hX-z3k"/>
                             <constraint firstItem="DYX-jr-3b9" firstAttribute="top" secondItem="p8k-ri-n8R" secondAttribute="bottom" constant="20" id="gnd-l8-9r0"/>
                             <constraint firstAttribute="trailing" secondItem="DYX-jr-3b9" secondAttribute="trailing" id="gzf-pq-aRY"/>
@@ -1009,6 +1038,7 @@
                                 <exclude reference="ZPq-vm-flF"/>
                                 <exclude reference="oQm-iI-Kcp"/>
                                 <exclude reference="arT-WU-vlp"/>
+                                <exclude reference="dIw-cF-7Pe"/>
                                 <exclude reference="A1u-V6-pbh"/>
                                 <exclude reference="pXz-9D-agy"/>
                             </mask>
@@ -1055,6 +1085,7 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="dIw-cF-7Pe"/>
                                 <include reference="A1u-V6-pbh"/>
                             </mask>
                         </variation>

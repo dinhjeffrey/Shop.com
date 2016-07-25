@@ -30,8 +30,10 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     static var imageUrls = [String]()
     private let shopVC = ShopViewController()
     private struct Storyboard {
-        static let Cell = "Cell"
+        static let Cell = "ResponsiveTableViewCell"
     }
+    let kResponsiveTableViewCellImageTag = 10
+    let kResponsiveTableViewCellLabelTag = 20
     
     // MARK: - View Controller Lifecycle
     override func viewDidLoad() { 
@@ -126,8 +128,17 @@ class Search2VC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.Cell, forIndexPath: indexPath)
-//        let name = names[indexPath.row]
-        cell.textLabel?.text = Search2VC.names[indexPath.row]
+        
+        // image
+        if let imageView = cell.viewWithTag(kResponsiveTableViewCellImageTag) as? UIImageView, url  = NSURL(string: Search2VC.imageUrls[indexPath.row]), data = NSData(contentsOfURL: url) {
+            imageView.image = UIImage(data: data)
+        }
+        
+        // label
+        if let nameLabel = cell.viewWithTag(kResponsiveTableViewCellLabelTag) as? UILabel {
+            nameLabel.text = Search2VC.names[indexPath.row]
+        }
+
         
         return cell
     }
