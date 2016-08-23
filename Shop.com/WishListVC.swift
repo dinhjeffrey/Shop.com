@@ -13,6 +13,7 @@ private let reuseIdentifier = "Cell"
 class WishListVC: UICollectionViewController {
 
     let defaults = NSUserDefaults.standardUserDefaults()
+    var items = [String]()
     let itemnames = ["Nike Air", "Adidas Superstar", "Nike Air 2016", "Vans Classic Floral"]
     let price = ["$100", "$100", "$200", "$50"]
     let realprice = [100, 100, 200, 50]
@@ -58,7 +59,9 @@ class WishListVC: UICollectionViewController {
         let cell : SearchBox = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! SearchBox
       
         let totalchange = defaults.integerForKey("change")
-        if((totalchange / 100) >= realprice[indexPath.row]){
+        print(totalchange)
+        print(realprice[indexPath.row])
+        if((totalchange) >= realprice[indexPath.row]){
             print("more")
             cell.appimage.image = UIImage(named: "\(images[indexPath.row])")
         }else{
